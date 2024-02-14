@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 int main()
@@ -8,19 +9,29 @@ int main()
 
     string path = "input.txt";
 
-    ofstream fout;
+    ifstream inputFile;
 
-    fout.open(path,ofstream::app);
+    inputFile.open(path);
 
-    if (!fout.is_open()) 
+    if (!inputFile.is_open())
     {
         cout << "Ошибка открытия файла" << endl;
     }
-    else {
-        fout << "\nПривет, мир!";
+    else
+    {
+        cout << "Файл был открыт успешно" << endl;
+        
+        string str;
+
+        while (!inputFile.eof())
+        {   
+            str = "";
+            getline(inputFile, str);
+            cout << str << endl;
+        }
     }
 
-    fout.close();
+    inputFile.close();
 
     return 0;
 }
