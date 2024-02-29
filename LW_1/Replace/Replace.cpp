@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <string>
-#include <Windows.h>
 using namespace std;
 
 string replaceString(string str, string oldWord, string newWord) {
@@ -9,21 +8,27 @@ string replaceString(string str, string oldWord, string newWord) {
     bool status = false;
     int startIndex = 0, endIndex = oldWord.length();
     //начинаем искать в строке нужные слова
-    for (int i = 0; i < str.length(); i++) {
+    for (int i = 0; i < str.length(); i++) 
+    {
         //если нашли первую букву искомого слова, проверяем равно ли оно ему
-        if (str[i] == oldWord[0]) {
+        if (str[i] == oldWord[0]) 
+        {
             startIndex = i;
-            for (int p = 0; p < oldWord.length(); p++, i++) {
-                if (str[i] != oldWord[p]) {
+            for (int p = 0; p < oldWord.length(); p++, i++) 
+            {
+                if (str[i] != oldWord[p]) 
+                {
                     status = false;
                     i = startIndex + 1;
                     break;
                 }
-                else {
+                else 
+                {
                     status = true;
                 }
             }
-            if (status) {
+            if (status) 
+            {
                 str.replace(startIndex, endIndex, newWord);
             }
         }
@@ -31,46 +36,38 @@ string replaceString(string str, string oldWord, string newWord) {
     return str;
 }
 
-int main()
-{
-    setlocale(LC_ALL, "ru");
+int main(int argc, char* argv[]) {
+    if (argc != 5)
+    {
+        cerr << "Invalid argument count!" << endl;
+        return 1;
+    }
 
-    string inputFileName;
-    string ouputFIleName;
-    string searchString;
-    string replacingString;
-
-    cout << "Введите имя файла который надо открыть:" << endl;
-    cin >> inputFileName;
-    cout << endl;
-
-    cout << "Введите имя файла в который надо сохранить:" << endl;
-    cin >> ouputFIleName;
-    cout << endl;
-
-    SetConsoleCP(1251);
-    cout << "Введите cлово, которое надо заменить:" << endl;
-    cin >> searchString;
-    cout << endl;
-
-    cout << "Введите cлово, которым надо заменить искомое:" << endl;
-    cin >> replacingString;
-    cout << endl;
-
+    string inputFileName = argv[1];
+    string ouputFIleName = argv[2];
+    string searchString = argv[3];
+    string replacingString = argv[4];
     ifstream inf;
     ofstream outf;
 
     inf.open(inputFileName);
 
-    if (!inf.is_open()) {
-        cout << "Ошибка открытия входного файла" << endl;
+    if (!inf.is_open())
+    {
+        cerr << "Error on opening input-file" << endl;
         return 1;
     }
-
-    else {
+    else 
+    {   
         outf.open(ouputFIleName);
+        if (!outf.is_open())
+        {
+            cerr << "Error on opening output-file" << endl;
+            return 1;
+        }
         string str;
-        while (getline(inf, str)) {
+        while (getline(inf, str))
+        {
             str = replaceString(str, searchString, replacingString);
             outf << str << endl;
         }
@@ -78,6 +75,5 @@ int main()
 
     inf.close();
     outf.close();
-    SetConsoleCP(866);
     return 0;
 }
