@@ -6,15 +6,16 @@ using namespace std;
 string replaceString(string str, string oldWord, string newWord) {
     if (oldWord.length() == 0) return str;
     bool status = false;
-    int startIndex = 0, endIndex = oldWord.length();
+    size_t startIndex = 0;
+    size_t endIndex = oldWord.length();
     //начинаем искать в строке нужные слова
-    for (int i = 0; i < str.length(); i++) 
+    for (size_t i = 0; i < str.length(); i++)
     {
         //если нашли первую букву искомого слова, проверяем равно ли оно ему
         if (str[i] == oldWord[0]) 
         {
             startIndex = i;
-            for (int p = 0; p < oldWord.length(); p++, i++) 
+            for (size_t p = 0; p < oldWord.length(); p++, i++)
             {
                 if (str[i] != oldWord[p]) 
                 {
