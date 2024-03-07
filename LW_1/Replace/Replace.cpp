@@ -38,16 +38,28 @@ string replaceString(string str, string oldWord, string newWord) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 5)
+    const string invalidArgumentError = "Invalid argument count!";
+    const string inputOpenError = "Error on opening input-file";
+    const string outputOpenError = "Error on opening output-file";
+    const string inputFormat = "Input format: replace.exe <input file> <output file> <search string> <replace string>";
+    const int firstArgument = 1;
+    const int secondArgument = 2;
+    const int thirdArgument = 3;
+    const int fourthArgument = 4;
+
+    const int requiredQuantityArguments = 5;
+
+    if (argc != requiredQuantityArguments)
     {
-        cerr << "Invalid argument count!" << endl;
+        cerr << invalidArgumentError << endl;
+        cerr << inputFormat << endl;
         return 1;
     }
 
-    string inputFileName = argv[1];
-    string ouputFIleName = argv[2];
-    string searchString = argv[3];
-    string replacingString = argv[4];
+    string inputFileName = argv[firstArgument];
+    string ouputFIleName = argv[secondArgument];
+    string searchString = argv[thirdArgument];
+    string replacingString = argv[fourthArgument];
     ifstream inf;
     ofstream outf;
 
@@ -55,7 +67,7 @@ int main(int argc, char* argv[]) {
 
     if (!inf.is_open())
     {
-        cerr << "Error on opening input-file" << endl;
+        cerr << inputOpenError << endl;
         return 1;
     }
     else 
@@ -63,7 +75,7 @@ int main(int argc, char* argv[]) {
         outf.open(ouputFIleName);
         if (!outf.is_open())
         {
-            cerr << "Error on opening output-file" << endl;
+            cerr << outputOpenError << endl;
             return 1;
         }
         string str;

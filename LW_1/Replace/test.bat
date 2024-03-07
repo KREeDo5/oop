@@ -31,7 +31,7 @@ echo No such file
 echo _________
 
 echo Test 5 
-echo situation with multiple occurrences of the search string in the replacement string
+echo (mama test) situation with multiple occurrences of the search string in the replacement string
 %PROGRAM% "test2.txt" "test2-out.txt" "ma" "mama" > nul
 if errorlevel 1 goto err
 echo Test 5 passed
