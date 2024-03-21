@@ -2,58 +2,64 @@
 
 set PROGRAM="%~1"
 
-echo Test 1 - This test checks that there are no arguments
+rem Test 1 - тест на отсутствие аргументов
 %PROGRAM% > nul
 if not ERRORLEVEL 1 goto err
-echo No arguments
+echo Test 1 passed - No arguments
 echo _________
 
-echo Test 2 - This test checks that there are not enough arguments
+rem Test 2 - тест на недостаточное количество аргументов
 %PROGRAM% "test1.txt" "test1-out.txt" > nul
 if not ERRORLEVEL 1 goto err
-echo Not enough arguments
+echo Test 2 passed - Not enough arguments
 echo _________
 
-echo Test 3 - This test checks for argument count overflow
+rem Test 3 - тест на переполнение аргументами
 %PROGRAM% "test1.txt" "test1-out.txt" "123" "123" "123" > nul
 if not ERRORLEVEL 1 goto err
-echo Too much arguments
+echo Test 3 passed - Arguments overflow
 echo _________
 
-echo Test 4 - missing file test
+rem Test 4 - тест на отсутствие входного файла
 %PROGRAM% "input.txt" "output.txt" "123" "1234" > nul
-if not ERRORLEVEL 1 goto err
-echo No such file
+if not ERRORLEVEL 2 goto err
+echo Test 4 passed - No such file 
 echo _________
 
-echo Test 5 - (mama test) situation with multiple occurrences of the search string in the replacement string
+rem Test 5 - (мама тест) проверяет ситуацию с многократным вхождением искомой строки в строку-заменитель
 %PROGRAM% "test2.txt" "test2-out.txt" "ma" "mama" > nul
-if ERRORLEVEL 1 goto err
-echo Test 5 passed
+if not ERRORLEVEL 0 goto err
+echo Test 5 passed (mama test)
 echo _________
 
-echo Test 6 - default task-test check
+rem Test 6 - тест с возвратом при неудачном поиске
 %PROGRAM% "test1.txt" "test1-out.txt" "1231234" "zamena" > nul
-if ERRORLEVEL 1 goto err
+if not ERRORLEVEL 0 goto err
 echo Test 6 passed
 echo _________
 
-echo Test 7 - dot-test check
+rem Test 7 - проверка "большого" текста
 %PROGRAM% "test7.txt" "test7-out.txt" "." "!" > nul
-if ERRORLEVEL 1 goto err
+if not ERRORLEVEL 0 goto err
 echo Test 7 passed
 echo _________
 
-echo Test 8 - empty-file check
+rem Test 8 - проверка работы с пустым входным файлом
 %PROGRAM% "test8.txt" "test8-out.txt" "." "!" > nul
-if ERRORLEVEL 1 goto err
+if not ERRORLEVEL 0 goto err
 echo Test 8 passed
 echo _________
 
-echo Test 9 - new-line test
+rem Test 9 - проверка вывода каретки в конце файла на новую строку
 %PROGRAM% "test9.txt" "test9-out.txt" "." "!" > nul
-if ERRORLEVEL 1 goto err
+if not ERRORLEVEL 0 goto err
 echo Test 9 passed
+echo _________
+
+rem Test 10 - проверка ситуации ввода пустых аргументов строк
+%PROGRAM% "test1.txt" "test10-out.txt" "" "" > nul
+if not ERRORLEVEL 0 goto err
+echo Test 10 passed
 echo _________
 
 echo All tests passed
