@@ -55,7 +55,9 @@ int main(int argc, char* argv[])
         cerr << INPUT_OPEN_ERROR << endl;
         return 2;
     }
+
     outf.open(ouputFIleName);
+
     if (!outf.is_open())
     {
         cerr << OUTPUT_OPEN_ERROR << endl;
