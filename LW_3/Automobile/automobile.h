@@ -1,80 +1,139 @@
 #pragma once
+const int PARKING_SPEED = 0;
 
-class Car {
-private:
-    bool engineOn = false; // Состояние двигателя (включен или выключен)
-    int currentGear = 0; // Текущая выбранная передача [-1..5]
-    int currentSpeed = 0; // Текущая скорость движения (целое число от 0 до максимальной скорости) 
+enum class Gear 
+{
+    REVERSE = -1,
+    NEUTRAL = 0,
+    FIRST = 1,
+    SECOND = 2,
+    THIRD = 3,
+    FOURTH = 4,
+    FIFTH = 5
+};
 
-public:
-    bool isTurnedOn()
+std::string GearToString(Gear gear) 
+{
+    switch (gear) 
     {
-        return engineOn;
+        case Gear::REVERSE:
+            return "Задняя передача";
+        case Gear::NEUTRAL:
+            return "Нейтраль";
+        case Gear::FIRST:
+            return "Первая передача";
+        case Gear::SECOND:
+            return "Вторая передача";
+        case Gear::THIRD:
+            return "Третья передача";
+        case Gear::FOURTH:
+            return "Четвёртая передача";
+        case Gear::FIFTH:
+            return "Пятая передача";
+        default:
+            return "Неизвестная передача";
     }
+}
 
-    int getSpeed()
+std::pair<int, int> GetSpeedLimits(Gear gear) 
+{
+    switch (gear) 
     {
-        return currentGear;
+        case Gear::REVERSE:
+            return std::make_pair(0, 20);   // Ограничение скорости для задней передачи
+        case Gear::NEUTRAL:
+            return std::make_pair(0, 0);
+        case Gear::FIRST:
+            return std::make_pair(0, 20);   // Ограничение скорости для первой передачи
+        case Gear::SECOND:
+            return std::make_pair(0, 30);   // Ограничение скорости для второй передачи
+        case Gear::THIRD:
+            return std::make_pair(20, 40);  // Ограничение скорости для третьей передачи
+        case Gear::FOURTH:
+            return std::make_pair(35, 50);  // Ограничение скорости для четвёртой передачи
+        case Gear::FIFTH:
+            return std::make_pair(45, 70);  // Ограничение скорости для пятой передачи
+        default:
+            return std::make_pair(60, 160); // Ограничение скорости для всех остальных передач
     }
+}
 
-    int getGear()
-    {
-        return currentGear;
-    }
+class Car 
+{
+    private:
+        bool engineOn = false;            // Состояние двигателя (включен или выключен)
+        Gear currentGear = Gear::NEUTRAL; // Текущая выбранная передача [-1..5]
+        int currentSpeed = PARKING_SPEED; // Текущая скорость движения (целое число от 0 до максимальной скорости) 
 
-    std::string getDirection()
-    {
-        if (currentSpeed == 0) {
-            return "Стоим на месте";
+    public:
+        bool isTurnedOn()
+        {
+            return engineOn;
         }
-        if (currentGear > 0) {
+
+        int getSpeed()
+        {
+            return currentSpeed;
+        }
+
+        std::string getGear()
+        {
+            return GearToString(currentGear);
+        }
+
+        std::string getDirection()
+        {
+            if (currentSpeed == PARKING_SPEED) {
+                return "Стоим на месте";
+            }
+            if (currentGear == Gear::REVERSE && currentSpeed > 0) {
+                return "Едем назад";
+            }
             return "Едем вперёд";
         }
-        return "Едем назад";
-    }
 
-    bool setSpeed(int speed)
-        //Задать указанную скорость. Возвращает true, если скорость удалось изменить 
-        // и false, если изменить скорость движения на указанную невозможно
-        // (например, на нейтральной передаче нельзя разогнаться).
-    {
-        if (currentGear == 0) {
-            return false;
+        bool setSpeed(int speed)
+            //Задать указанную скорость. Возвращает true, если скорость удалось изменить 
+            // и false, если изменить скорость движения на указанную невозможно
+            // (например, на нейтральной передаче нельзя разогнаться).
+        {
+            if (currentGear == Gear::NEUTRAL) {
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
 
 
-    //TODO: реализовать подход с использованием массивов
-    bool setGear(int gear)
-        //Выбрать указанную передачу [-1..5]. В случае успешного переключения передачи
-        // (в том числе и на саму себя) возвращает true.
-    {
-        if (gear < -1 || gear > 5){
-            return false;
+        //TODO: реализовать подход с использованием массивов
+        bool setGear(int gear)
+            //Выбрать указанную передачу [-1..5]. В случае успешного переключения передачи
+            // (в том числе и на саму себя) возвращает true.
+        {
+            if (gear < static_cast<int>(Gear::REVERSE) || gear > static_cast<int>(Gear::FIFTH)){
+                return false;
+            }
+            if (gear == static_cast<int>(Gear::REVERSE) && currentGear != Gear::REVERSE && currentSpeed > PARKING_SPEED) {
+                return false;
+            }
+            if (gear > static_cast<int>(Gear::NEUTRAL) && currentGear == Gear::REVERSE && currentSpeed > PARKING_SPEED) {
+                return false;
+            }
+            currentGear = Gear(gear);
+            return true;
         }
-        if (gear == -1 && currentGear != -1 && currentSpeed > 0) {
-            return false;
-        }
-        if (gear > 0 && currentGear == -1 && currentSpeed > 0) {
-            return false;
-        }
-        currentGear = gear;
-        return true;
-    }
 
-    bool turnOnEngine()
-    {
-        engineOn = true;
-        return true;
-    }
-
-    bool turnOffEngine()
-    {
-        if (currentGear != 0 || currentSpeed > 0) {
-            return false;
+        bool turnOnEngine()
+        {
+            engineOn = true;
+            return true;
         }
-        engineOn = false;
-        return true;
-    }
+
+        bool turnOffEngine()
+        {
+            if (currentGear != Gear::NEUTRAL || currentSpeed > PARKING_SPEED) {
+                return false;
+            }
+            engineOn = false;
+            return true;
+        }
 };
