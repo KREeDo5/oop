@@ -50,14 +50,14 @@ SpeedLimit getSpeedLimits(Gear gear)
         case Gear::NEUTRAL:
             return SpeedLimit(PARKING_SPEED, MAX_SPEED);
         case Gear::FIRST:
-            return SpeedLimit(PARKING_SPEED, FIRST_MAX_SPEED);   // Ограничение скорости для первой передачи
+            return SpeedLimit(PARKING_SPEED, FIRST_MAX_SPEED);     // Ограничение скорости для первой передачи
         case Gear::SECOND:
-            return SpeedLimit(SECOND_MIN_SPEED, SECOND_MAX_SPEED);   // Ограничение скорости для второй передачи
+            return SpeedLimit(SECOND_MIN_SPEED, SECOND_MAX_SPEED); // Ограничение скорости для второй передачи
         case Gear::THIRD:
-            return SpeedLimit(THIRD_MIN_SPEED, THIRD_MAX_SPEED);  // Ограничение скорости для третьей передачи
+            return SpeedLimit(THIRD_MIN_SPEED, THIRD_MAX_SPEED);   // Ограничение скорости для третьей передачи
         case Gear::FOURTH:
-            return SpeedLimit(FOURTH_MIN_SPEED, FOURTH_MAX_SPEED);  // Ограничение скорости для четвёртой передачи
+            return SpeedLimit(FOURTH_MIN_SPEED, FOURTH_MAX_SPEED); // Ограничение скорости для четвёртой передачи
         default:
-            return SpeedLimit(DEFAULT_MIN_SPEED, MAX_SPEED); // Ограничение скорости для всех остальных передач
+            return SpeedLimit(DEFAULT_MIN_SPEED, MAX_SPEED);       // Ограничение скорости для всех остальных передач
     }
 }
