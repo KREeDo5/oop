@@ -11,12 +11,12 @@ std::string directionToString(Direction direction)
 {
     switch (direction)
     {
-    case Direction::FORWARD:
-        return "Едем вперёд";
-    case Direction::BACK:
-        return "Едем назад";
-    default:
-        return "Стоим на месте";
+        case Direction::FORWARD:
+            return "Едем вперёд";
+        case Direction::BACK:
+            return "Едем назад";
+        default:
+            return "Стоим на месте";
     }
 }
 

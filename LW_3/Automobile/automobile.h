@@ -1,8 +1,13 @@
 #pragma once
 #include "gear.h"
 #include "direction.h"
+#include "speedLimit.h"
 
 const int PARKING_SPEED = 0;
+const std::string NEUTRAL_SET_SPEED_ERROR = "Включена нейтральная передача. Вращательный момент не передаётся на ось. Включите передачу.";
+const std::string MIN_SET_SPEED_ERROR = "Скорость слишком мала для текущей передачи, понизьте передачу.";
+const std::string NEGATIVE_SET_SPEED_ERROR = "Скорость не может быть отрицательной. Введите положительное значение.";
+const std::string MAX_SET_SPEED_ERROR = "Скорость слишком высока для текущей передачи, повысьте передачу.";
 
 class Car 
 {
@@ -34,14 +39,31 @@ class Car
         }
 
         bool setSpeed(int speed)
-            //Задать указанную скорость. Возвращает true, если скорость удалось изменить 
-            // и false, если изменить скорость движения на указанную невозможно
-            // (например, на нейтральной передаче нельзя разогнаться).
         {
             if (currentGear == Gear::NEUTRAL) {
+                std::cout << NEUTRAL_SET_SPEED_ERROR << std::endl;
                 return false;
             }
-            return true;
+            SpeedLimit speedLimit = getSpeedLimits(currentGear);
+            int minSpeed = speedLimit.getMinSpeed();
+            int maxSpeed = speedLimit.getMaxSpeed();
+            if (speed > minSpeed && speed < maxSpeed) {
+                currentSpeed = speed;
+                return true;
+            }
+            if (speed < minSpeed)
+            {
+                std::cout << MIN_SET_SPEED_ERROR << std::endl;
+            }
+            if (speed < PARKING_SPEED)
+            {
+                std::cout << NEGATIVE_SET_SPEED_ERROR << std::endl;
+            }
+            if (speed > minSpeed)
+            {
+                std::cout << MAX_SET_SPEED_ERROR << std::endl;
+            }
+            return false;
         }
 
         //TODO: реализовать подход с использованием массивов
