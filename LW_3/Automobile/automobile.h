@@ -29,7 +29,12 @@ class Car
             return currentSpeed;
         }
 
-        std::string getGear()
+        int getGear()
+        {
+            return gearToInt(currentGear);
+        }
+
+        std::string getStringGear()
         {
             return gearToString(currentGear);
         }
