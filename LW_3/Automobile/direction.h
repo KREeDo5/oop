@@ -1,4 +1,5 @@
 #pragma once
+
 const std::string DIRECTION_FORWARD = "Едем вперёд";
 const std::string DIRECTION_BACK = "Едем назад";
 const std::string DIRECTION_PARKING = "Стоим на месте";

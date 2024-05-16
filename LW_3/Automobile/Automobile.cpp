@@ -56,12 +56,7 @@ int main() {
         std::cin >> choice;
         std::cout << DIVIDER;
 
-        // Проверяем, является ли введенное значение числом и находится ли в диапазоне допустимых вариантов
-        if (std::cin.fail() || (choice < 0 || choice > 5)) {
-            std::cout << INPUT_ERROR << std::endl;
-            std::cin.clear();                                                   // Очищаем флаг ошибки ввода
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очищаем буфер ввода
-        }
+        
 
         switch (choice) {
             case 1:
