@@ -24,6 +24,12 @@ const std::string DRIVE_SET_GEAR_ERROR = "Нельзя включать заднюю передачу, если 
 const std::string BACK_DRIVE_GEAR_SET_GEAR_ERROR = "Нельзя включать передние передачи во время движения назад. Остановитесь и переключите передачу.";
 const std::string SET_GEAR = "Скорость переключена";
 
+const std::string RECOMMEND_SPEED_FROM = "Введите скорость (от ";
+const std::string RECOMMEND_SPEED_TO = " до ";
+const std::string RECOMMEND_SPEED_CLOSE_BRACKET = "): ";
+const std::string RECOMMEND_SPEED_ENGINE_ERROR = "Чтобы поменять скорость необходимо включить двигатель.";
+const std::string RECOMMEND_SPEED_NEUTRAL_ERROR = "Чтобы поменять скорость необходимо включить передачу отличную от нейтральной.";
+
 class Car 
 {
     private:
@@ -51,17 +57,17 @@ class Car
         bool getRecommendSpeed()
         {   
             if (!engineOn) {
-                std::cout << "Чтобы поменять скорость необходимо включить двигатель и включить передачу отличную от нейтральной." << std::endl;;
+                std::cout << RECOMMEND_SPEED_ENGINE_ERROR << std::endl;;
                 return false;
             }
             if (currentGear == Gear::NEUTRAL) {
-                std::cout << "Чтобы поменять скорость необходимо включить передачу отличную от нейтральной." << std::endl;;
+                std::cout << RECOMMEND_SPEED_NEUTRAL_ERROR << std::endl;;
                 return false;
             }
             SpeedLimit speedLimit = getSpeedLimits(currentGear);
             int minSpeed = speedLimit.getMinSpeed();
             int maxSpeed = speedLimit.getMaxSpeed();
-            std::cout << "Введите скорость (от " << minSpeed << " до " << maxSpeed << "): ";
+            std::cout << RECOMMEND_SPEED_FROM << minSpeed << RECOMMEND_SPEED_TO << maxSpeed << RECOMMEND_SPEED_CLOSE_BRACKET;
             return true;
         }
 

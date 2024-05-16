@@ -11,6 +11,13 @@ const std::string GEAR_IS = "Передача: ";
 const std::string EXIT = "Выход из программы.";
 const std::string INPUT_ERROR = "Некорректный ввод. Пожалуйста, введите число от 0 до 5.";
 const std::string YOUR_CHOICE = "Ваш выбор: ";
+const std::string MAKE_CHOICE = "Выберите действие:";
+const std::string CHOICE_INFO = "1. Вывести информацию об авто";
+const std::string CHOICE_ENGINE_ON = "2. Включить двигатель";
+const std::string CHOICE_ENGINE_OFF = "3. Выключить двигатель";
+const std::string CHOICE_CHANGE_GEAR = "4. Переключить передачу";
+const std::string CHOICE_CHANGE_SPEED = "5. Поменять скорость";
+const std::string CHOICE_EXIT = "0. " + EXIT;
 
 
 void info(Car car)
@@ -36,13 +43,13 @@ int main() {
     int choice = -1;
 
     while (choice != 0) {
-        std::cout << "Выберите действие:" << std::endl;
-        std::cout << "1. Вывести информацию об авто" << std::endl;
-        std::cout << "2. Включить двигатель" << std::endl;
-        std::cout << "3. Выключить двигатель" << std::endl;
-        std::cout << "4. Переключить передачу" << std::endl;
-        std::cout << "5. Поменять скорость" << std::endl;
-        std::cout << "0. Выход из программы" << std::endl;
+        std::cout << MAKE_CHOICE << std::endl;
+        std::cout << CHOICE_INFO << std::endl;
+        std::cout << CHOICE_ENGINE_ON << std::endl;
+        std::cout << CHOICE_ENGINE_OFF << std::endl;
+        std::cout << CHOICE_CHANGE_GEAR << std::endl;
+        std::cout << CHOICE_CHANGE_SPEED << std::endl;
+        std::cout << CHOICE_EXIT << std::endl;
 
 
         std::cout << YOUR_CHOICE;
