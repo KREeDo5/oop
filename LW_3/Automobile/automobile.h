@@ -15,6 +15,7 @@ const std::string NEUTRAL_SET_SPEED_ERROR = "Включена нейтральная передача. Вращ
 const std::string MIN_SET_SPEED_ERROR = "Скорость слишком мала для текущей передачи, понизьте передачу.";
 const std::string NEGATIVE_SET_SPEED_ERROR = "Скорость не может быть отрицательной. Введите положительное значение.";
 const std::string MAX_SET_SPEED_ERROR = "Скорость слишком высока для текущей передачи, повысьте передачу.";
+const std::string SET_SPEED = "Скорость изменена";
 
 const std::string INPUT_SET_GEAR = "Введите номер передачи (число от -1 до 5): ";
 const std::string MIN_SET_GEAR_ERROR = "Текущая скорость не подходит для этой передачи. Увеличьте скорость.";
@@ -22,7 +23,7 @@ const std::string MAX_SET_GEAR_ERROR = "Текущая скорость не подходит для этой пе
 const std::string NO_GEAR_SET_GEAR_ERROR = "Такой передачи нет. Выберите одну из предложенных ранее передач.";
 const std::string DRIVE_SET_GEAR_ERROR = "Нельзя включать заднюю передачу, если вы находитесь в движении. Остановитесь и переключите передачу.";
 const std::string BACK_DRIVE_GEAR_SET_GEAR_ERROR = "Нельзя включать передние передачи во время движения назад. Остановитесь и переключите передачу.";
-const std::string SET_GEAR = "Скорость переключена";
+const std::string SET_GEAR = "Передача переключена";
 
 const std::string RECOMMEND_SPEED_FROM = "Введите скорость (от ";
 const std::string RECOMMEND_SPEED_TO = " до ";
@@ -94,11 +95,12 @@ class Car
             SpeedLimit speedLimit = getSpeedLimits(currentGear);
             int minSpeed = speedLimit.getMinSpeed();
             int maxSpeed = speedLimit.getMaxSpeed();
-            if (speed > minSpeed && speed < maxSpeed) {
+            if (speed >= minSpeed && speed <= maxSpeed) {
                 currentSpeed = speed;
-                currentDirection = (currentGear == Gear::REVERSE) 
-                    ? Direction::BACK 
+                currentDirection = (currentGear == Gear::REVERSE)
+                    ? Direction::BACK
                     : Direction::FORWARD;
+                std::cout << SET_SPEED << std::endl;
                 return true;
             }
             if (speed < minSpeed)
