@@ -2,6 +2,15 @@
 
 #include "speedLimit.h"
 
+const std::string GEAR_REVERSE = "Задняя передача";
+const std::string GEAR_NEUTRAL = "Нейтраль";
+const std::string GEAR_FIRST = "Первая передача";
+const std::string GEAR_SECOND = "Вторая передача";
+const std::string GEAR_THIRD = "Третья передача";
+const std::string GEAR_FOURTH = "Четвёртая передача";
+const std::string GEAR_FIFTH = "Пятая передача";
+const std::string GEAR_UNKOWN = "Неизвестная передача";
+
 enum class Gear
 {
     REVERSE = -1,
@@ -18,21 +27,21 @@ std::string gearToString(Gear gear)
     switch (gear)
     {
         case Gear::REVERSE:
-            return "Задняя передача";
+            return GEAR_REVERSE;
         case Gear::NEUTRAL:
-            return "Нейтраль";
+            return GEAR_NEUTRAL;
         case Gear::FIRST:
-            return "Первая передача";
+            return GEAR_FIRST;
         case Gear::SECOND:
-            return "Вторая передача";
+            return GEAR_SECOND;
         case Gear::THIRD:
-            return "Третья передача";
+            return GEAR_THIRD;
         case Gear::FOURTH:
-            return "Четвёртая передача";
+            return GEAR_FOURTH;
         case Gear::FIFTH:
-            return "Пятая передача";
+            return GEAR_FIFTH;
         default:
-            return "Неизвестная передача";
+            return GEAR_UNKOWN;
     }
 }
 
