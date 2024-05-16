@@ -22,7 +22,7 @@ enum class Gear
     FIFTH = 5
 };
 
-std::string gearToString(Gear gear)
+std::string GearToString(Gear gear)
 {
     switch (gear)
     {
@@ -45,12 +45,12 @@ std::string gearToString(Gear gear)
     }
 }
 
-int gearToInt(Gear gear)
+int GearToInt(Gear gear)
 {
     return static_cast<int>(gear);
 }
 
-SpeedLimit getSpeedLimits(Gear gear)
+SpeedLimit GetSpeedLimits(Gear gear)
 {
     switch (gear)
     {

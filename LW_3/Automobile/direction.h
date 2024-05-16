@@ -11,7 +11,7 @@ enum class Direction
     FORWARD = 1
 };
 
-std::string directionToString(Direction direction)
+std::string DirectionToString(Direction direction)
 {
     switch (direction)
     {
@@ -24,7 +24,7 @@ std::string directionToString(Direction direction)
     }
 }
 
-int directionToInt(Direction direction)
+int DirectionToInt(Direction direction)
 {
     return static_cast<int>(direction);
 }

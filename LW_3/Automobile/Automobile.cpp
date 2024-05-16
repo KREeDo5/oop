@@ -22,7 +22,7 @@ const std::string CHOICE_EXIT = "0. " + EXIT;
 
 void info(Car car)
 {
-    bool engineStatus = car.isTurnedOn();
+    bool engineStatus = car.IsTurnedOn();
     if (engineStatus)
     {
         std::cout << ENGINE_ON << std::endl;
@@ -30,9 +30,9 @@ void info(Car car)
     else {
         std::cout << ENGINE_OFF << std::endl;
     }
-    std::cout << DIRECTION_IS << car.getDirection() << std::endl;
-    std::cout << SPEED_IS << car.getSpeed() << std::endl;
-    std::cout << GEAR_IS << car.getGear() << OPEN_BRACKET << car.getStringGear() << CLOSE_BRACKET << std::endl;
+    std::cout << DIRECTION_IS << car.GetDirection() << std::endl;
+    std::cout << SPEED_IS << car.GetSpeed() << std::endl;
+    std::cout << GEAR_IS << car.GetGear() << OPEN_BRACKET << car.GetStringGear() << CLOSE_BRACKET << std::endl;
 }
 
 int main() {
@@ -64,30 +64,30 @@ int main() {
                 std::cout << DIVIDER;
                 break;
             case 2:
-                car.turnOnEngine();
+                car.TurnOnEngine();
                 std::cout << DIVIDER;
                 break;
             case 3:
-                car.turnOffEngine();
+                car.TurnOffEngine();
                 std::cout << DIVIDER;
                 break;
             case 4:
                 int gear;
                 std::cout << INPUT_SET_GEAR;
                 std::cin >> gear;
-                car.setGear(gear);
+                car.SetGear(gear);
                 std::cout << DIVIDER;
                 break;
             case 5:
                 int speed;
                 bool result;
-                result = car.getRecommendSpeed();
+                result = car.GetRecommendSpeed();
                 if (!result) {
                     std::cout << DIVIDER;
                     break;
                 }
                 std::cin >> speed;
-                car.setSpeed(speed);
+                car.SetSpeed(speed);
                 std::cout << DIVIDER;
                 break;
             case 0:
