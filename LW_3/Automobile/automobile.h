@@ -26,8 +26,6 @@ string MENU_CHANGE_GEAR = "4. Переключить передачу";
 string MENU_CHANGE_SPEED = "5. Поменять скорость";
 string MENU_EXIT = "0. " + EXIT;
 
-string ENGINE_ON = "Двигатель включен";
-string ENGINE_OFF = "Двигатель выключен";
 string TURN_ON_ENGINE = "Двигатель был включен";
 string TURN_OFF_ERROR = "Не удалось выключить двигатель. Остановите транспорт и переключите скорость на нейтральную.";
 string TURN_OFF_ENGINE = "Двигатель был выключен";
@@ -55,8 +53,8 @@ string RECOMMEND_SPEED_NEUTRAL_ERROR = "Чтобы поменять скорость необходимо включ
 
 
 static void ShowMenu() {
-    cout << MENU_INFO << endl;
     cout << MAKE_CHOICE << endl;
+    cout << MENU_INFO << endl;
     cout << MENU_ENGINE_ON << endl;
     cout << MENU_ENGINE_OFF << endl;
     cout << MENU_CHANGE_GEAR << endl;
@@ -65,19 +63,9 @@ static void ShowMenu() {
 }
 
 static void ShowCarInfo(map<string, string> carInfo) {
-
-    /*
-    if (carInfo["engineStatus"] == )
-    {
-        std::cout << ENGINE_ON << std::endl;
-    }
-    else {
-        std::cout << ENGINE_OFF << std::endl;
-    }
-     */
     cout << carInfo["engineStatus"] << endl;
-    cout << carInfo["direction"] << endl;
-    cout << carInfo["speed"] << endl;
+    cout << DIRECTION_IS << carInfo["direction"] << endl;
+    cout << SPEED_IS << carInfo["speed"] << endl;
     cout << GEAR_IS << carInfo["gear"] << OPEN_BRACKET << carInfo["stringGear"] << CLOSE_BRACKET << endl;
 }
 

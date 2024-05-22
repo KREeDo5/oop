@@ -9,11 +9,10 @@
 #include "direction.h"
 #include "speedLimit.h"
 
+const string ENGINE_ON = "Двигатель включен";
+const string ENGINE_OFF = "Двигатель выключен";
+
 using namespace std;
-//TODO: реализовать handler'ы
-//TODO: метод info должен быть в Car (READY)
-//TODO: Автомобиль не может общаться с пользователем
-//TODO: реализовать объявление всех методов в car.spp (в car.h только объявление)
 class Car {
     public:
         map<string, string> info();
@@ -37,23 +36,11 @@ class Car {
         Gear currentGear = Gear::NEUTRAL;                // Текущая выбранная передача [-1..5]
         Direction currentDirection = Direction::PARKING; // Текущее направление
 
-        bool IsTurnedOn() 
-        { 
-            return engineOn; 
-        }
-        int GetSpeed() 
-        { 
-            return currentSpeed; 
-        }
-        int GetGear() 
-        { 
-            return GearToInt(currentGear);
-        }
+        bool IsTurnedOn();
+        int GetSpeed();
+        int GetGear();
         string GetStringGear();
         string GetDirection();
 
-        SpeedLimit GetSpeedLimits(Gear gear) 
-        {
-            return GetSpeedLimits(currentGear);
-        }
+        SpeedLimit GetSpeedLimits(Gear gear);
 };

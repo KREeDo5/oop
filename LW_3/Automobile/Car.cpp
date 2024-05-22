@@ -7,7 +7,7 @@ using namespace std;
 map<string, string> Car::info()
 {
     map<string, string> carInfo;
-    carInfo["engineStatus"] = IsTurnedOn();
+    carInfo["engineStatus"] = IsTurnedOn() ? ENGINE_ON : ENGINE_OFF;
     carInfo["direction"] = GetDirection();
     carInfo["speed"] = to_string(GetSpeed());
     carInfo["gear"] = to_string(GetGear());
@@ -23,7 +23,7 @@ map<string, int> Car::GetRecommendSpeed()
         recommendSpeed["error"] = 1;
         return recommendSpeed;
     }
-    if (currentGear == Gear::NEUTRAL) {
+    if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED) {
         recommendSpeed["error"] = 2;
         return recommendSpeed;
     }
@@ -31,6 +31,20 @@ map<string, int> Car::GetRecommendSpeed()
     recommendSpeed["minSpeed"] = speedLimit.GetMinSpeed();
     recommendSpeed["maxSpeed"] = speedLimit.GetMaxSpeed();
     return recommendSpeed;
+}
+
+bool Car::IsTurnedOn()
+{
+    return engineOn;
+}
+
+int Car::GetSpeed()
+{
+    return currentSpeed;
+}
+int Car::GetGear()
+{
+    return GearToInt(currentGear);
 }
 
 string Car::GetStringGear()
@@ -65,15 +79,15 @@ bool Car::SetSpeed(int speed, function<void()> onSuccess, function<void(int)> on
         onError(1);
         return false;
     }
-    if (currentGear == Gear::NEUTRAL) {
+    if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED) {
         onError(2);
         return false;
     }
 
     SpeedLimit speedLimit = GetSpeedLimits(currentGear);
     int minSpeed = speedLimit.GetMinSpeed();
-    int maxSpeed = speedLimit.GetMaxSpeed()
-        ;
+    int maxSpeed = speedLimit.GetMaxSpeed();
+
     if (speed >= minSpeed && speed <= maxSpeed) {
         currentSpeed = speed;
         currentDirection = (currentGear == Gear::REVERSE)
@@ -141,4 +155,25 @@ bool Car::SetGear(int gear, function<void()> onSuccess, function<void(int)> onEr
     currentGear = Gear(gear);
     onSuccess();
     return true;
+}
+
+SpeedLimit Car::GetSpeedLimits(Gear gear)
+{
+    switch (gear)
+    {
+    case Gear::REVERSE:
+        return SpeedLimit(PARKING_SPEED, REVERSE_MAX_SPEED);
+    case Gear::NEUTRAL:
+        return SpeedLimit(PARKING_SPEED, currentSpeed);
+    case Gear::FIRST:
+        return SpeedLimit(PARKING_SPEED, FIRST_MAX_SPEED);
+    case Gear::SECOND:
+        return SpeedLimit(SECOND_MIN_SPEED, SECOND_MAX_SPEED);
+    case Gear::THIRD:
+        return SpeedLimit(THIRD_MIN_SPEED, THIRD_MAX_SPEED);
+    case Gear::FOURTH:
+        return SpeedLimit(FOURTH_MIN_SPEED, FOURTH_MAX_SPEED);
+    default:
+        return SpeedLimit(DEFAULT_MIN_SPEED, MAX_SPEED);
+    }
 }

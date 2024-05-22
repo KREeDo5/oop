@@ -37,6 +37,8 @@ int main() {
                 result = car.TurnOffEngine();
                 if (!result) {
                     cout << TURN_OFF_ERROR << endl;
+                    cout << DIVIDER;
+                    break;
                 }
                 cout << TURN_OFF_ENGINE << endl;
                 cout << DIVIDER;
@@ -47,7 +49,7 @@ int main() {
                 cin >> gear;
                 car.SetGear(gear,
                     [](){ 
-                        cout << SET_SPEED << endl; 
+                        cout << SET_GEAR << endl;
                     },
                     [](int error){
                         showGearError(error);
