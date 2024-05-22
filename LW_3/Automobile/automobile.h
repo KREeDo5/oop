@@ -4,6 +4,23 @@
 #include "direction.h"
 #include "speedLimit.h"
 
+const std::string DIVIDER = "________________________________\n\n";
+const std::string OPEN_BRACKET = " (";
+const std::string CLOSE_BRACKET = ")";
+
+const std::string DIRECTION_IS = "Направление: ";
+const std::string SPEED_IS = "Скорость: ";
+const std::string GEAR_IS = "Передача: ";
+const std::string EXIT = "Выход из программы.";
+const std::string INPUT_ERROR = "Некорректный ввод. Пожалуйста, введите число от 0 до 5.";
+const std::string YOUR_CHOICE = "Ваш выбор: ";
+const std::string MAKE_CHOICE = "Выберите действие:";
+const std::string MENU_INFO = "1. Вывести информацию об авто";
+const std::string MENU_ENGINE_ON = "2. Включить двигатель";
+const std::string MENU_ENGINE_OFF = "3. Выключить двигатель";
+const std::string MENU_CHANGE_GEAR = "4. Переключить передачу";
+const std::string MENU_CHANGE_SPEED = "5. Поменять скорость";
+const std::string MENU_EXIT = "0. " + EXIT;
 
 const std::string ENGINE_ON = "Двигатель включен";
 const std::string ENGINE_OFF = "Двигатель выключен";
@@ -31,162 +48,3 @@ const std::string RECOMMEND_SPEED_TO = " до ";
 const std::string RECOMMEND_SPEED_CLOSE_BRACKET = "): ";
 const std::string RECOMMEND_SPEED_ENGINE_ERROR = "Чтобы поменять скорость необходимо включить двигатель.";
 const std::string RECOMMEND_SPEED_NEUTRAL_ERROR = "Чтобы поменять скорость необходимо включить передачу отличную от нейтральной.";
-
-class Car 
-{       
-    //TODO: реализовать handler'ы
-    //TODO: метод info должен быть в Car
-    //TODO: Автомобиль не может общаться с пользователем
-    //TODO: реализовать объявление всех методов в car.spp (в car.h только объявление)
-    private:
-        bool engineOn = false;                           // Состояние двигателя (включен или выключен)
-        int currentSpeed = PARKING_SPEED;                // Текущая скорость движения (целое число от 0 до максимальной скорости) 
-        Gear currentGear = Gear::NEUTRAL;                // Текущая выбранная передача [-1..5]
-        Direction currentDirection = Direction::PARKING; // Текущее направление
-
-    public:
-        bool IsTurnedOn()
-        {
-            return engineOn;
-        }
-
-        int GetSpeed()
-        {
-            return currentSpeed;
-        }
-
-        int GetGear()
-        {
-            return GearToInt(currentGear);
-        }
-
-        bool GetRecommendSpeed()
-        {   
-            if (!engineOn) {
-                std::cout << RECOMMEND_SPEED_ENGINE_ERROR << std::endl;;
-                return false;
-            }
-            if (currentGear == Gear::NEUTRAL) {
-                std::cout << RECOMMEND_SPEED_NEUTRAL_ERROR << std::endl;;
-                return false;
-            }
-            SpeedLimit speedLimit = GetSpeedLimits(currentGear);
-            int minSpeed = speedLimit.GetMinSpeed();
-            int maxSpeed = speedLimit.GetMaxSpeed();
-            std::cout << RECOMMEND_SPEED_FROM << minSpeed << RECOMMEND_SPEED_TO << maxSpeed << RECOMMEND_SPEED_CLOSE_BRACKET;
-            return true;
-        }
-
-        std::string GetStringGear()
-        {
-            return GearToString(currentGear);
-        }
-
-        std::string GetDirection()
-        {
-            return DirectionToString(currentDirection);
-        }
-
-        bool SetSpeed(int speed)
-        {    
-            if (!engineOn) {
-                std::cout << OFF_ENGINE_SET_SPEED_ERROR << std::endl;
-                return false;
-            }
-            if (currentGear == Gear::NEUTRAL) {
-                std::cout << NEUTRAL_SET_SPEED_ERROR << std::endl;
-                return false;
-            }
-
-            SpeedLimit speedLimit = GetSpeedLimits(currentGear);
-            int minSpeed = speedLimit.GetMinSpeed();
-            int maxSpeed = speedLimit.GetMaxSpeed()
-                ;
-            if (speed >= minSpeed && speed <= maxSpeed) {
-                currentSpeed = speed;
-                currentDirection = (currentGear == Gear::REVERSE)
-                    ? Direction::BACK
-                    : Direction::FORWARD;
-                std::cout << SET_SPEED << std::endl;
-                return true;
-            }
-            if (speed < minSpeed)
-            {
-                std::cout << MIN_SET_SPEED_ERROR << std::endl;
-            }
-            if (speed < PARKING_SPEED)
-            {
-                std::cout << NEGATIVE_SET_SPEED_ERROR << std::endl;
-            }
-            if (speed > maxSpeed)
-            {
-                std::cout << MAX_SET_SPEED_ERROR << std::endl;
-            }
-            return false;
-        }
-
-        bool SetGear(int gear)
-        {
-            // если передачи не существует
-            if (gear < GearToInt(Gear::REVERSE) || gear > GearToInt(Gear::FIFTH))
-            {
-                std::cout << NO_GEAR_SET_GEAR_ERROR << std::endl;
-                return false;
-            }
-
-            // если передача - задняя, но сейчас скорость больше чем 0
-            if (gear == GearToInt(Gear::REVERSE) && currentGear != Gear::REVERSE && currentSpeed > PARKING_SPEED)
-            {
-                std::cout << DRIVE_SET_GEAR_ERROR << std::endl;
-                return false;
-            }
-
-            // если передача 1-5, а сейчас включена задняя и мы движемся
-            if (gear > GearToInt(Gear::NEUTRAL) && currentGear == Gear::REVERSE && currentSpeed > PARKING_SPEED)
-            {
-                std::cout << BACK_DRIVE_GEAR_SET_GEAR_ERROR << std::endl;
-                return false;
-            }
-
-            SpeedLimit speedLimit = GetSpeedLimits(Gear(gear));
-            int minSpeed = speedLimit.GetMinSpeed();
-            int maxSpeed = speedLimit.GetMaxSpeed();
-
-            // если скорость недостаточна для желаемой передачи
-            if (currentSpeed < minSpeed)
-            {   
-                std::cout << MIN_SET_GEAR_ERROR << std::endl;
-                return false;
-            }
-
-            // если скорость велика для желаемой передачи
-            if (currentSpeed > maxSpeed)
-            {
-                std::cout << MAX_SET_GEAR_ERROR << std::endl;
-                return false;
-            }
-
-            currentGear = Gear(gear);
-            std::cout << SET_GEAR << std::endl;
-            return true;
-        }
-
-        bool TurnOnEngine()
-        {   
-            std::cout << TURN_ON_ENGINE << std::endl;
-            engineOn = true;
-            return true;
-        }
-
-        bool TurnOffEngine()
-        {
-            if (currentGear != Gear::NEUTRAL || currentSpeed > PARKING_SPEED)
-            {   
-                std::cout << TURN_OFF_ERROR << std::endl;
-                return false;
-            }
-            engineOn = false;
-            std::cout << TURN_OFF_ENGINE << std::endl;
-            return true;
-        }
-};

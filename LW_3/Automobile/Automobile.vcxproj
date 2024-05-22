@@ -128,10 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Automobile.cpp" />
-    <ClCompile Include="tests.cpp" />
+    <ClCompile Include="Car.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="automobile.h" />
+    <ClInclude Include="car.h" />
     <ClInclude Include="direction.h" />
     <ClInclude Include="gear.h" />
     <ClInclude Include="speedLimit.h" />

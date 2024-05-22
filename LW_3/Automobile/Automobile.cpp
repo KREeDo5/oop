@@ -1,101 +1,118 @@
-﻿#include <iostream>
+﻿#pragma once
+
+#include <iostream>
 #include "automobile.h"
+#include "car.cpp"
 
-const std::string DIVIDER = "________________________________\n\n";
-const std::string OPEN_BRACKET = " (";
-const std::string CLOSE_BRACKET = ")";
+using namespace std;
 
-const std::string DIRECTION_IS = "Направление: ";
-const std::string SPEED_IS = "Скорость: ";
-const std::string GEAR_IS = "Передача: ";
-const std::string EXIT = "Выход из программы.";
-const std::string INPUT_ERROR = "Некорректный ввод. Пожалуйста, введите число от 0 до 5.";
-const std::string YOUR_CHOICE = "Ваш выбор: ";
-const std::string MAKE_CHOICE = "Выберите действие:";
-const std::string CHOICE_INFO = "1. Вывести информацию об авто";
-const std::string CHOICE_ENGINE_ON = "2. Включить двигатель";
-const std::string CHOICE_ENGINE_OFF = "3. Выключить двигатель";
-const std::string CHOICE_CHANGE_GEAR = "4. Переключить передачу";
-const std::string CHOICE_CHANGE_SPEED = "5. Поменять скорость";
-const std::string CHOICE_EXIT = "0. " + EXIT;
+void showMenu() {
+    cout << MENU_INFO << endl;
+    cout << MAKE_CHOICE << endl;
+    cout << MENU_ENGINE_ON << endl;
+    cout << MENU_ENGINE_OFF << endl;
+    cout << MENU_CHANGE_GEAR << endl;
+    cout << MENU_CHANGE_SPEED << endl;
+    cout << MENU_EXIT << endl;
+}
 
+void showCarInfo(map<string, string> carInfo) {
 
-void info(Car car)
-{
-    bool engineStatus = car.IsTurnedOn();
-    if (engineStatus)
+    /*
+    if (carInfo["engineStatus"] == )
     {
         std::cout << ENGINE_ON << std::endl;
     }
     else {
         std::cout << ENGINE_OFF << std::endl;
     }
-    std::cout << DIRECTION_IS << car.GetDirection() << std::endl;
-    std::cout << SPEED_IS << car.GetSpeed() << std::endl;
-    std::cout << GEAR_IS << car.GetGear() << OPEN_BRACKET << car.GetStringGear() << CLOSE_BRACKET << std::endl;
+     */
+    cout << carInfo["engineStatus"] << endl;
+    cout << carInfo["direction"] << endl;
+    cout << carInfo["speed"] << endl;
+    cout << GEAR_IS << carInfo["gear"] << OPEN_BRACKET << carInfo["stringGear"] << CLOSE_BRACKET << endl;
 }
+
+int showRecommendSpeed(map<string, int> recommendSpeed) {
+    if (recommendSpeed["error"] > 0)
+    {
+        if (recommendSpeed["error"] == 1)
+        {
+            cout << RECOMMEND_SPEED_ENGINE_ERROR << endl;
+        }
+        if (recommendSpeed["error"] == 2)
+        {
+            cout << RECOMMEND_SPEED_NEUTRAL_ERROR << endl;
+        }
+        return 1;
+    }
+    cout << RECOMMEND_SPEED_FROM << recommendSpeed["minSpeed"] << RECOMMEND_SPEED_TO << recommendSpeed["maxSpeed"] << RECOMMEND_SPEED_CLOSE_BRACKET;
+    return 0;
+}
+
 
 int main() {
     setlocale(LC_ALL, "Russian");
 
     Car car;
+    map<string, string> carInfo;
+    map<string, int> recommendSpeed;
 
     int choice = -1;
 
-    while (choice != 0) {
-        std::cout << MAKE_CHOICE << std::endl;
-        std::cout << CHOICE_INFO << std::endl;
-        std::cout << CHOICE_ENGINE_ON << std::endl;
-        std::cout << CHOICE_ENGINE_OFF << std::endl;
-        std::cout << CHOICE_CHANGE_GEAR << std::endl;
-        std::cout << CHOICE_CHANGE_SPEED << std::endl;
-        std::cout << CHOICE_EXIT << std::endl;
+    while (choice != 0) { 
+        showMenu();
 
-
-        std::cout << YOUR_CHOICE;
-        std::cin >> choice;
-        std::cout << DIVIDER;
-
-        
+        cout << YOUR_CHOICE;
+        cin >> choice;
+        cout << DIVIDER;
 
         switch (choice) {
             case 1:
-                info(car);
-                std::cout << DIVIDER;
+                carInfo = car.info();
+                showCarInfo(carInfo);
+                cout << DIVIDER;
                 break;
             case 2:
                 car.TurnOnEngine();
-                std::cout << DIVIDER;
+                cout << TURN_ON_ENGINE << endl;
+                cout << DIVIDER;
                 break;
             case 3:
-                car.TurnOffEngine();
-                std::cout << DIVIDER;
+                bool result;
+                result = car.TurnOffEngine();
+                if (!result) {
+                    cout << TURN_OFF_ERROR << endl;
+                }
+                cout << TURN_OFF_ENGINE << endl;
+                cout << DIVIDER;
                 break;
             case 4:
                 int gear;
-                std::cout << INPUT_SET_GEAR;
-                std::cin >> gear;
+                cout << INPUT_SET_GEAR;
+                cin >> gear;
                 car.SetGear(gear);
-                std::cout << DIVIDER;
+                cout << DIVIDER;
                 break;
             case 5:
                 int speed;
-                bool result;
-                result = car.GetRecommendSpeed();
-                if (!result) {
-                    std::cout << DIVIDER;
+                int result;
+                recommendSpeed = car.GetRecommendSpeed();
+                result = showRecommendSpeed(recommendSpeed);
+                if (result > 0) {
+                    cout << DIVIDER;
                     break;
                 }
-                std::cin >> speed;
+                cin >> speed;
                 car.SetSpeed(speed);
-                std::cout << DIVIDER;
+                cout << DIVIDER;
                 break;
             case 0:
-                std::cout << EXIT << std::endl;
+                cout << EXIT << endl;
                 break;
             default:
-                std::cout << INPUT_ERROR << std::endl;
-                std::cout << DIVIDER;
+                cout << INPUT_ERROR << endl;
+                cout << DIVIDER;
         }
     }
 
