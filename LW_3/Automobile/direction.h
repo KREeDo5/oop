@@ -1,8 +1,10 @@
 #pragma once
 
-const std::string DIRECTION_FORWARD = "Едем вперёд";
-const std::string DIRECTION_BACK = "Едем назад";
-const std::string DIRECTION_PARKING = "Стоим на месте";
+using namespace std;
+
+const string DIRECTION_FORWARD = "Едем вперёд";
+const string DIRECTION_BACK = "Едем назад";
+const string DIRECTION_PARKING = "Стоим на месте";
 
 enum class Direction
 {
@@ -11,7 +13,7 @@ enum class Direction
     FORWARD = 1
 };
 
-std::string DirectionToString(Direction direction)
+string DirectionToString(Direction direction)
 {
     switch (direction)
     {

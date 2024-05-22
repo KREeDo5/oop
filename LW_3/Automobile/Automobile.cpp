@@ -1,55 +1,9 @@
 ﻿#pragma once
 
-#include <iostream>
 #include "automobile.h"
-#include "car.cpp"
+#include "car.h"
 
 using namespace std;
-
-void showMenu() {
-    cout << MENU_INFO << endl;
-    cout << MAKE_CHOICE << endl;
-    cout << MENU_ENGINE_ON << endl;
-    cout << MENU_ENGINE_OFF << endl;
-    cout << MENU_CHANGE_GEAR << endl;
-    cout << MENU_CHANGE_SPEED << endl;
-    cout << MENU_EXIT << endl;
-}
-
-void showCarInfo(map<string, string> carInfo) {
-
-    /*
-    if (carInfo["engineStatus"] == )
-    {
-        std::cout << ENGINE_ON << std::endl;
-    }
-    else {
-        std::cout << ENGINE_OFF << std::endl;
-    }
-     */
-    cout << carInfo["engineStatus"] << endl;
-    cout << carInfo["direction"] << endl;
-    cout << carInfo["speed"] << endl;
-    cout << GEAR_IS << carInfo["gear"] << OPEN_BRACKET << carInfo["stringGear"] << CLOSE_BRACKET << endl;
-}
-
-int showRecommendSpeed(map<string, int> recommendSpeed) {
-    if (recommendSpeed["error"] > 0)
-    {
-        if (recommendSpeed["error"] == 1)
-        {
-            cout << RECOMMEND_SPEED_ENGINE_ERROR << endl;
-        }
-        if (recommendSpeed["error"] == 2)
-        {
-            cout << RECOMMEND_SPEED_NEUTRAL_ERROR << endl;
-        }
-        return 1;
-    }
-    cout << RECOMMEND_SPEED_FROM << recommendSpeed["minSpeed"] << RECOMMEND_SPEED_TO << recommendSpeed["maxSpeed"] << RECOMMEND_SPEED_CLOSE_BRACKET;
-    return 0;
-}
-
 
 int main() {
     setlocale(LC_ALL, "Russian");
@@ -61,7 +15,7 @@ int main() {
     int choice = -1;
 
     while (choice != 0) { 
-        showMenu();
+        ShowMenu();
 
         cout << YOUR_CHOICE;
         cin >> choice;
@@ -70,7 +24,7 @@ int main() {
         switch (choice) {
             case 1:
                 carInfo = car.info();
-                showCarInfo(carInfo);
+                ShowCarInfo(carInfo);
                 cout << DIVIDER;
                 break;
             case 2:
@@ -91,20 +45,34 @@ int main() {
                 int gear;
                 cout << INPUT_SET_GEAR;
                 cin >> gear;
-                car.SetGear(gear);
+                car.SetGear(gear,
+                    [](){ 
+                        cout << SET_SPEED << endl; 
+                    },
+                    [](int error){
+                        showGearError(error);
+                    }
+                );
                 cout << DIVIDER;
                 break;
             case 5:
                 int speed;
-                int result;
+                bool showSpeed;
                 recommendSpeed = car.GetRecommendSpeed();
-                result = showRecommendSpeed(recommendSpeed);
-                if (result > 0) {
+                showSpeed = ShowRecommendSpeed(recommendSpeed);
+                if (!showSpeed) {
                     cout << DIVIDER;
                     break;
                 }
                 cin >> speed;
-                car.SetSpeed(speed);
+                car.SetSpeed(speed,
+                    []() {
+                        cout << SET_SPEED << endl;
+                    },
+                    [](int error) {
+                        showSpeedError(error);
+                    }
+                );
                 cout << DIVIDER;
                 break;
             case 0:
