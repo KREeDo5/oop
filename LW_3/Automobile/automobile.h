@@ -52,7 +52,8 @@ string RECOMMEND_SPEED_ENGINE_ERROR = "Чтобы поменять скорость необходимо включи
 string RECOMMEND_SPEED_NEUTRAL_ERROR = "Чтобы поменять скорость необходимо включить передачу отличную от нейтральной.";
 
 
-static void ShowMenu() {
+static void ShowMenu()
+{
     cout << MAKE_CHOICE << endl;
     cout << MENU_INFO << endl;
     cout << MENU_ENGINE_ON << endl;
@@ -62,14 +63,16 @@ static void ShowMenu() {
     cout << MENU_EXIT << endl;
 }
 
-static void ShowCarInfo(map<string, string> carInfo) {
+static void ShowCarInfo(map<string, string> carInfo)
+{
     cout << carInfo["engineStatus"] << endl;
     cout << DIRECTION_IS << carInfo["direction"] << endl;
     cout << SPEED_IS << carInfo["speed"] << endl;
     cout << GEAR_IS << carInfo["gear"] << OPEN_BRACKET << carInfo["stringGear"] << CLOSE_BRACKET << endl;
 }
 
-bool ShowRecommendSpeed(map<string, int> recommendSpeed) {
+bool ShowRecommendSpeed(map<string, int> recommendSpeed)
+{
     if (recommendSpeed["error"] > 0)
     {
         if (recommendSpeed["error"] == 1)
@@ -86,46 +89,50 @@ bool ShowRecommendSpeed(map<string, int> recommendSpeed) {
     return true;
 }
 
-void showGearError(int error) {
-    switch (error) {
-    case 1:
-        cout << NO_GEAR_SET_GEAR_ERROR << endl;
-        break;
-    case 2:
-        cout << DRIVE_SET_GEAR_ERROR << endl;
-        break;
-    case 3:
-        cout << BACK_DRIVE_GEAR_SET_GEAR_ERROR << endl;
-        break;
-    case 4:
-        cout << MIN_SET_GEAR_ERROR << endl;
-        break;
-    case 5:
-        cout << MAX_SET_GEAR_ERROR << endl;
-        break;
-    default:
-        cout << ERROR << endl;
+void showGearError(int error)
+{
+    switch (error)
+    {
+        case 1:
+            cout << NO_GEAR_SET_GEAR_ERROR << endl;
+            break;
+        case 2:
+            cout << DRIVE_SET_GEAR_ERROR << endl;
+            break;
+        case 3:
+            cout << BACK_DRIVE_GEAR_SET_GEAR_ERROR << endl;
+            break;
+        case 4:
+            cout << MIN_SET_GEAR_ERROR << endl;
+            break;
+        case 5:
+            cout << MAX_SET_GEAR_ERROR << endl;
+            break;
+        default:
+            cout << ERROR << endl;
     }
 }
 
-void showSpeedError(int error) {
-    switch (error) {
-    case 1:
-        cout << OFF_ENGINE_SET_SPEED_ERROR << endl;
-        break;
-    case 2:
-        cout << NEUTRAL_SET_SPEED_ERROR << endl;
-        break;
-    case 3:
-        cout << MIN_SET_SPEED_ERROR << endl;
-        break;
-    case 4:
-        cout << NEGATIVE_SET_SPEED_ERROR << endl;
-        break;
-    case 5:
-        cout << MAX_SET_SPEED_ERROR << endl;
-        break;
-    default:
-        cout << ERROR << endl;
+void showSpeedError(int error) 
+{
+    switch (error) 
+    {
+        case 1:
+            cout << OFF_ENGINE_SET_SPEED_ERROR << endl;
+            break;
+        case 2:
+            cout << NEUTRAL_SET_SPEED_ERROR << endl;
+            break;
+        case 3:
+            cout << MIN_SET_SPEED_ERROR << endl;
+            break;
+        case 4:
+            cout << NEGATIVE_SET_SPEED_ERROR << endl;
+            break;
+        case 5:
+            cout << MAX_SET_SPEED_ERROR << endl;
+            break;
+        default:
+            cout << ERROR << endl;
     }
 }

@@ -19,11 +19,13 @@ map<string, int> Car::GetRecommendSpeed()
 {
     map<string, int> recommendSpeed;
     recommendSpeed["error"] = 0;
-    if (!engineOn) {
+    if (!engineOn)
+    {
         recommendSpeed["error"] = 1;
         return recommendSpeed;
     }
-    if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED) {
+    if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED)
+    {
         recommendSpeed["error"] = 2;
         return recommendSpeed;
     }
@@ -75,11 +77,13 @@ bool Car::TurnOffEngine()
 
 bool Car::SetSpeed(int speed, function<void()> onSuccess, function<void(int)> onError)
 {
-    if (!engineOn) {
+    if (!engineOn) 
+    {
         onError(1);
         return false;
     }
-    if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED) {
+    if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED)
+    {
         onError(2);
         return false;
     }
@@ -88,7 +92,8 @@ bool Car::SetSpeed(int speed, function<void()> onSuccess, function<void(int)> on
     int minSpeed = speedLimit.GetMinSpeed();
     int maxSpeed = speedLimit.GetMaxSpeed();
 
-    if (speed >= minSpeed && speed <= maxSpeed) {
+    if (speed >= minSpeed && speed <= maxSpeed)
+    {
         currentSpeed = speed;
         currentDirection = (currentGear == Gear::REVERSE)
             ? Direction::BACK

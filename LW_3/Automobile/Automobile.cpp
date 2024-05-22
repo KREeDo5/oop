@@ -5,7 +5,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     setlocale(LC_ALL, "Russian");
 
     Car car;
@@ -14,14 +15,16 @@ int main() {
 
     int choice = -1;
 
-    while (choice != 0) { 
+    while (choice != 0)
+    { 
         ShowMenu();
 
         cout << YOUR_CHOICE;
         cin >> choice;
         cout << DIVIDER;
 
-        switch (choice) {
+        switch (choice)
+        {
             case 1:
                 carInfo = car.info();
                 ShowCarInfo(carInfo);
@@ -48,10 +51,10 @@ int main() {
                 cout << INPUT_SET_GEAR;
                 cin >> gear;
                 car.SetGear(gear,
-                    [](){ 
+                    []() { 
                         cout << SET_GEAR << endl;
                     },
-                    [](int error){
+                    [](int error) {
                         showGearError(error);
                     }
                 );
@@ -62,12 +65,14 @@ int main() {
                 bool showSpeed;
                 recommendSpeed = car.GetRecommendSpeed();
                 showSpeed = ShowRecommendSpeed(recommendSpeed);
-                if (!showSpeed) {
+                if (!showSpeed)
+                {
                     cout << DIVIDER;
                     break;
                 }
                 cin >> speed;
-                car.SetSpeed(speed,
+                car.SetSpeed(
+                    speed,
                     []() {
                         cout << SET_SPEED << endl;
                     },
