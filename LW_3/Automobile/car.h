@@ -30,7 +30,7 @@ class Car {
             function<void(int)> onError
         );
 
-    private:
+        //private (public for tests)
         bool engineOn = false;                           // Состояние двигателя (включен или выключен)
         int currentSpeed = PARKING_SPEED;                // Текущая скорость движения (целое число от 0 до максимальной скорости)
         Gear currentGear = Gear::NEUTRAL;                // Текущая выбранная передача [-1..5]

@@ -14,19 +14,18 @@ const int MAX_SPEED = 150;
 
 class SpeedLimit
 {
-    //TODO: реализовать через пары <min,max>
-public:
-    SpeedLimit(int minSpeed, int maxSpeed) : minSpeed(minSpeed), maxSpeed(maxSpeed) {}
+    public:
+        SpeedLimit(int minSpeed, int maxSpeed) : minSpeed(minSpeed), maxSpeed(maxSpeed) {}
 
-    int GetMinSpeed() const {
-        return minSpeed;
-    }
+        int GetMinSpeed() const {
+            return minSpeed;
+        }
 
-    int GetMaxSpeed() const {
-        return maxSpeed;
-    }
+        int GetMaxSpeed() const {
+            return maxSpeed;
+        }
 
-private:
-    int minSpeed;
-    int maxSpeed;
+    private:
+        int minSpeed;
+        int maxSpeed;
 };
