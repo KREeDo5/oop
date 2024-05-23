@@ -18,15 +18,15 @@ map<string, string> Car::info()
 map<string, int> Car::GetRecommendSpeed()
 {
     map<string, int> recommendSpeed;
-    recommendSpeed["error"] = 0;
+    recommendSpeed["error"] = SUCCESS;
     if (!engineOn)
     {
-        recommendSpeed["error"] = 1;
+        recommendSpeed["error"] = ENGINE_IS_OFF;
         return recommendSpeed;
     }
     if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED)
     {
-        recommendSpeed["error"] = 2;
+        recommendSpeed["error"] = NEUTRAL_SPEED_ERROR;
         return recommendSpeed;
     }
     SpeedLimit speedLimit = GetSpeedLimits(currentGear);
@@ -79,12 +79,12 @@ bool Car::SetSpeed(int speed, function<void()> onSuccess, function<void(int)> on
 {
     if (!engineOn) 
     {
-        onError(1);
+        onError(ENGINE_IS_OFF);
         return false;
     }
     if (currentGear == Gear::NEUTRAL && currentSpeed == PARKING_SPEED)
     {
-        onError(2);
+        onError(NEUTRAL_SPEED_ERROR);
         return false;
     }
 
@@ -103,15 +103,15 @@ bool Car::SetSpeed(int speed, function<void()> onSuccess, function<void(int)> on
     }
     if (speed < minSpeed)
     {
-        onError(3);
+        onError(OVER_MIN_SPEED_ERROR);
     }
     if (speed < PARKING_SPEED)
     {
-        onError(4);
+        onError(NEGATIVE_SPEED_ERROR);
     }
     if (speed > maxSpeed)
     {
-        onError(5);
+        onError(OVER_MAX_SPEED_ERROR);
     }
     return false;
 }
@@ -121,21 +121,21 @@ bool Car::SetGear(int gear, function<void()> onSuccess, function<void(int)> onEr
     // если передачи не существует
     if (gear < GearToInt(Gear::REVERSE) || gear > GearToInt(Gear::FIFTH))
     {
-        onError(1);
+        onError(DEFAULT_GEAR_ERROR);
         return false;
     }
 
     // если передача - задняя, но сейчас скорость больше чем 0
     if (gear == GearToInt(Gear::REVERSE) && currentGear != Gear::REVERSE && currentSpeed > PARKING_SPEED)
     {
-        onError(2);
+        onError(REVERSE_SPEED_ERROR);
         return false;
     }
 
     // если передача 1-5, а сейчас включена задняя и мы движемся
     if (gear > GearToInt(Gear::NEUTRAL) && currentGear == Gear::REVERSE && currentSpeed > PARKING_SPEED)
     {
-        onError(3);
+        onError(REVERSE_GEAR_ERROR);
         return false;
     }
 
@@ -146,14 +146,14 @@ bool Car::SetGear(int gear, function<void()> onSuccess, function<void(int)> onEr
     // если скорость недостаточна для желаемой передачи
     if (currentSpeed < minSpeed)
     {
-        onError(4);
+        onError(RANGE_SPEED_MIN_ERROR);
         return false;
     }
 
     // если скорость велика для желаемой передачи
     if (currentSpeed > maxSpeed)
     {
-        onError(5);
+        onError(RANGE_SPEED_MAX_ERROR);
         return false;
     }
 

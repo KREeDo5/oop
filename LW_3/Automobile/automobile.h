@@ -73,13 +73,13 @@ static void ShowCarInfo(map<string, string> carInfo)
 
 bool ShowRecommendSpeed(map<string, int> recommendSpeed)
 {
-    if (recommendSpeed["error"] > 0)
+    if (recommendSpeed["error"] > SUCCESS)
     {
-        if (recommendSpeed["error"] == 1)
+        if (recommendSpeed["error"] == ENGINE_IS_OFF)
         {
             cout << RECOMMEND_SPEED_ENGINE_ERROR << endl;
         }
-        if (recommendSpeed["error"] == 2)
+        if (recommendSpeed["error"] == NEUTRAL_SPEED_ERROR)
         {
             cout << RECOMMEND_SPEED_NEUTRAL_ERROR << endl;
         }
@@ -93,19 +93,19 @@ void showGearError(int error)
 {
     switch (error)
     {
-        case 1:
+        case DEFAULT_GEAR_ERROR:
             cout << NO_GEAR_SET_GEAR_ERROR << endl;
             break;
-        case 2:
+        case REVERSE_SPEED_ERROR:
             cout << DRIVE_SET_GEAR_ERROR << endl;
             break;
-        case 3:
+        case REVERSE_GEAR_ERROR:
             cout << BACK_DRIVE_GEAR_SET_GEAR_ERROR << endl;
             break;
-        case 4:
+        case RANGE_SPEED_MIN_ERROR:
             cout << MIN_SET_GEAR_ERROR << endl;
             break;
-        case 5:
+        case RANGE_SPEED_MAX_ERROR:
             cout << MAX_SET_GEAR_ERROR << endl;
             break;
         default:
@@ -117,19 +117,19 @@ void showSpeedError(int error)
 {
     switch (error) 
     {
-        case 1:
+        case ENGINE_IS_OFF:
             cout << OFF_ENGINE_SET_SPEED_ERROR << endl;
             break;
-        case 2:
+        case NEUTRAL_SPEED_ERROR:
             cout << NEUTRAL_SET_SPEED_ERROR << endl;
             break;
-        case 3:
+        case OVER_MIN_SPEED_ERROR:
             cout << MIN_SET_SPEED_ERROR << endl;
             break;
-        case 4:
+        case NEGATIVE_SPEED_ERROR:
             cout << NEGATIVE_SET_SPEED_ERROR << endl;
             break;
-        case 5:
+        case OVER_MAX_SPEED_ERROR:
             cout << MAX_SET_SPEED_ERROR << endl;
             break;
         default:

@@ -11,6 +11,18 @@
 
 const string ENGINE_ON = "Двигатель включен";
 const string ENGINE_OFF = "Двигатель выключен";
+const int SUCCESS = 0;
+const int ENGINE_IS_OFF = 1;
+const int NEUTRAL_SPEED_ERROR = 2;
+const int OVER_MIN_SPEED_ERROR = 3;
+const int NEGATIVE_SPEED_ERROR = 4;
+const int OVER_MAX_SPEED_ERROR = 5;
+
+const int DEFAULT_GEAR_ERROR = 1;
+const int REVERSE_SPEED_ERROR = 2;
+const int REVERSE_GEAR_ERROR = 3;
+const int RANGE_SPEED_MIN_ERROR = 4;
+const int RANGE_SPEED_MAX_ERROR = 5;
 
 using namespace std;
 class Car {
