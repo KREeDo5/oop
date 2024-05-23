@@ -138,7 +138,7 @@ SCENARIO("Выбор скорости")
 
             THEN("Скорость должна измениться.")
             {
-                REQUIRE(car.currentSpeed == 10); // Проверяем, что текущая скорость 10
+                REQUIRE(car.GetSpeed() == 10); // Проверяем, что текущая скорость 10
                 REQUIRE(onSuccessCalled == true); // Проверяем, что onSuccess был вызван
                 REQUIRE(onErrorCalled == false); // Проверяем, что onError не был вызван
             }
@@ -221,8 +221,8 @@ SCENARIO("Выбор недопустимой скорости")
 
             THEN("Скорость не должна измениться.")
             {
-                REQUIRE(car.currentSpeed != 200); // Проверяем, что текущая скорость не 200
-                REQUIRE(car.currentSpeed == 0); // Проверяем, что текущая скорость не изменилась
+                REQUIRE(car.GetSpeed() != 200); // Проверяем, что текущая скорость не 200
+                REQUIRE(car.GetSpeed() == 0); // Проверяем, что текущая скорость не изменилась
                 REQUIRE(onSuccessCalled == false); // Проверяем, что onSuccess не был вызван
                 REQUIRE(onErrorCalled == true); // Проверяем, что onError был вызван
             }

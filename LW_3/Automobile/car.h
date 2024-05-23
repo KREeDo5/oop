@@ -31,11 +31,6 @@ class Car {
         );
 
         //private (public for tests)
-        bool engineOn = false;                           // Состояние двигателя (включен или выключен)
-        int currentSpeed = PARKING_SPEED;                // Текущая скорость движения (целое число от 0 до максимальной скорости)
-        Gear currentGear = Gear::NEUTRAL;                // Текущая выбранная передача [-1..5]
-        Direction currentDirection = Direction::PARKING; // Текущее направление
-
         bool IsTurnedOn();
         int GetSpeed();
         int GetGear();
@@ -43,7 +38,10 @@ class Car {
         string GetDirection();
 
         SpeedLimit GetSpeedLimits(Gear gear);
-};
 
-//string GearToString(Gear gear);
-//int GearToInt(Gear gear);
+    private: //TODO: _____________________________________________релизовать методы для вывода значений для тестов____________________________________________________________________
+        bool engineOn = false;                           // Состояние двигателя (включен или выключен)
+        int currentSpeed = PARKING_SPEED;                // Текущая скорость движения (целое число от 0 до максимальной скорости)
+        Gear currentGear = Gear::NEUTRAL;                // Текущая выбранная передача [-1..5]
+        Direction currentDirection = Direction::PARKING; // Текущее направление
+};
