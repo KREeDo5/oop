@@ -3,7 +3,7 @@
 #include <sstream>
 #define CATCH_CONFIG_MAIN
 #include "../Automobile/catch.hpp"
-#include "D:\Repos\VOLGATECH_WORK\ООП\LW_3\Automobile\car.h"
+#include "../Automobile/car.h"
 
 SCENARIO("Двигатель можно включить и выключить")
 {
@@ -138,7 +138,7 @@ SCENARIO("Выбор скорости")
 
             THEN("Скорость должна измениться.")
             {
-                REQUIRE(car.currentSpeed == 10); // Проверяем, что текущая передача - первая
+                REQUIRE(car.currentSpeed == 10); // Проверяем, что текущая скорость 10
                 REQUIRE(onSuccessCalled == true); // Проверяем, что onSuccess был вызван
                 REQUIRE(onErrorCalled == false); // Проверяем, что onError не был вызван
             }
@@ -187,3 +187,45 @@ SCENARIO("Выбор задней передачи в недопустимый �
         }
     }
 };
+
+SCENARIO("Выбор недопустимой скорости")
+{
+    Car car;
+
+    GIVEN("Двигатель включен")
+    {
+        car.TurnOnEngine(); // Включаем двигатель
+        REQUIRE(car.IsTurnedOn() == true); // Проверяем, что двигатель включен
+
+        WHEN("Выбираем необходимую скорость")
+        {
+            bool onSuccessCalled = false;
+            bool onErrorCalled = false;
+
+            auto onSuccess = [&onSuccessCalled]()
+                {
+                    onSuccessCalled = true;
+                };
+
+            auto onError = [&onErrorCalled](int error)
+                {
+                    onErrorCalled = true;
+                };
+
+            REQUIRE(car.SetGear(1, onSuccess, onError) == true); // Выбираем 1 передачу
+
+            onSuccessCalled = false;
+            onErrorCalled = false;
+
+            REQUIRE(car.SetSpeed(200, onSuccess, onError) == false); // Выбираем 200 скорость
+
+            THEN("Скорость не должна измениться.")
+            {
+                REQUIRE(car.currentSpeed != 200); // Проверяем, что текущая скорость не 200
+                REQUIRE(car.currentSpeed == 0); // Проверяем, что текущая скорость не изменилась
+                REQUIRE(onSuccessCalled == false); // Проверяем, что onSuccess не был вызван
+                REQUIRE(onErrorCalled == true); // Проверяем, что onError был вызван
+            }
+        }
+    }
+}
