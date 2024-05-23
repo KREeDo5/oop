@@ -44,3 +44,6 @@ class Car {
 
         SpeedLimit GetSpeedLimits(Gear gear);
 };
+
+//string GearToString(Gear gear);
+//int GearToInt(Gear gear);

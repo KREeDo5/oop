@@ -15,33 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Automobile.cpp">
+    <ClCompile Include="TestCar.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Car.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="..\Automobile\Car.cpp">
+      <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="Gear.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="..\Automobile\Gear.cpp">
+      <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="Direction.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="..\Automobile\Direction.cpp">
+      <Filter>Файлы ресурсов</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="automobile.h">
+    <ClInclude Include="..\Automobile\car.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="gear.h">
+    <ClInclude Include="..\Automobile\gear.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="direction.h">
+    <ClInclude Include="..\Automobile\direction.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="speedLimit.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="car.h">
+    <ClInclude Include="..\Automobile\speedLimit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{14c5e976-e7c4-4f1d-bd62-c3495d341290}</ProjectGuid>
-    <RootNamespace>Automobile</RootNamespace>
+    <ProjectGuid>{1215067b-8138-4bee-8b18-bb5dbbd777a2}</ProjectGuid>
+    <RootNamespace>TestCar</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -109,6 +109,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -127,17 +130,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Automobile.cpp" />
-    <ClCompile Include="Car.cpp" />
-    <ClCompile Include="Direction.cpp" />
-    <ClCompile Include="Gear.cpp" />
+    <ClCompile Include="..\Automobile\Car.cpp" />
+    <ClCompile Include="..\Automobile\Direction.cpp" />
+    <ClCompile Include="..\Automobile\Gear.cpp" />
+    <ClCompile Include="TestCar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="automobile.h" />
-    <ClInclude Include="car.h" />
-    <ClInclude Include="direction.h" />
-    <ClInclude Include="gear.h" />
-    <ClInclude Include="speedLimit.h" />
+    <ClInclude Include="..\Automobile\car.h" />
+    <ClInclude Include="..\Automobile\direction.h" />
+    <ClInclude Include="..\Automobile\gear.h" />
+    <ClInclude Include="..\Automobile\speedLimit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
