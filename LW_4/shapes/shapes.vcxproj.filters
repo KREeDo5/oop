@@ -33,7 +33,7 @@
     <ClCompile Include="CTriangle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="DataProcessor.cpp">
+    <ClCompile Include="Shapes.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +59,7 @@
     <ClInclude Include="CCircle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="DataProcessor.h">
+    <ClInclude Include="Shapes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

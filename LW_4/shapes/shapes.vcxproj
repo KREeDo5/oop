@@ -133,7 +133,7 @@
     <ClCompile Include="CPoint.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CTriangle.cpp" />
-    <ClCompile Include="DataProcessor.cpp" />
+    <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +142,7 @@
     <ClInclude Include="CPoint.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CTriangle.h" />
-    <ClInclude Include="DataProcessor.h" />
+    <ClInclude Include="Shapes.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="ISolidShape.h" />
   </ItemGroup>
