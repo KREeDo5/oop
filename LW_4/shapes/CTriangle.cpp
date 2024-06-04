@@ -19,9 +19,9 @@ std::string CTriangle::ToString() const
 {
 	std::ostringstream oss;
 
-	oss << std::setprecision(ACCURACY) << std::fixed;
+	oss << std::setprecision(ACCURACY_TRIANGLE) << std::fixed;
 
-	oss << TYPE << std::endl
+	oss << TYPE_TRIANGLE << std::endl
 		<< VERTEX_FIRST << OPEN_BRACKET << m_vertex[FIRST].x << COMMA << m_vertex[FIRST].y << CLOSE_BRACKET << std::endl
 		<< VERTEX_SECOND << OPEN_BRACKET << m_vertex[SECOND].x << COMMA << m_vertex[SECOND].y << CLOSE_BRACKET << std::endl
 		<< VERTEX_THIRD << OPEN_BRACKET << m_vertex[THIRD].x << COMMA << m_vertex[THIRD].y << CLOSE_BRACKET << std::endl

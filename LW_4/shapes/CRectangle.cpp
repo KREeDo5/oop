@@ -16,9 +16,9 @@ std::string CRectangle::ToString() const
 {
 	std::ostringstream oss;
 
-	oss << std::setprecision(ACCURACY) << std::fixed;
+	oss << std::setprecision(ACCURACY_RECTANGLE) << std::fixed;
 
-	oss << TYPE << std::endl
+	oss << TYPE_RECTANGLE << std::endl
 		<< LEFT_TOP << OPEN_BRACKET << m_leftTop.x << COMMA << m_leftTop.y << CLOSE_BRACKET << std::endl
 		<< WIDTH << m_width << std::endl
 		<< HEIGHT << m_height << std::endl

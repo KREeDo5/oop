@@ -2,8 +2,8 @@
 #include "IShape.h"
 #include "CPoint.h"
 
-const std::string TYPE = "type: line segment";
-const int ACCURACY = 2;
+const std::string TYPE_LINE = "type: line segment";
+const int ACCURACY_LINE = 2;
 const double ZERO_AREA = 0.0;
 
 class CLineSegment : public IShape

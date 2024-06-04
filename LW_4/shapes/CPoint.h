@@ -8,5 +8,5 @@ public:
 	double x;
 	double y;
 
-	bool operator==(const CPoint& other);
+	bool operator==(const CPoint& other) const;
 };

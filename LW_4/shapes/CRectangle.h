@@ -2,12 +2,11 @@
 #include "ISolidShape.h"
 #include "CPoint.h"
 
-const std::string TYPE = "type: rectangle";
+const std::string TYPE_RECTANGLE = "type: rectangle";
 const std::string WIDTH = "width: ";
 const std::string HEIGHT = "height: ";
 const std::string LEFT_TOP = "left top: ";
-const int ACCURACY = 2;
-const double ZERO_AREA = 0.0;
+const int ACCURACY_RECTANGLE = 2;
 
 class CRectangle : public ISolidShape
 {

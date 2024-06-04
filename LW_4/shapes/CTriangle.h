@@ -2,14 +2,14 @@
 #include "ISolidShape.h"
 #include "CPoint.h"
 
-const std::string TYPE = "type: triangle";
+const std::string TYPE_TRIANGLE = "type: triangle";
 const std::string VERTEX_FIRST = "vertex 1: ";
 const std::string VERTEX_SECOND = "vertex 2: ";
 const std::string VERTEX_THIRD = "vertex 3: ";
 const int FIRST = 0;
 const int SECOND = 1;
 const int THIRD = 2;
-const int ACCURACY = 2;
+const int ACCURACY_TRIANGLE = 2;
 const double HALF = 0.5;
 
 class CTriangle : public ISolidShape

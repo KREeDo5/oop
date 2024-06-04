@@ -2,10 +2,10 @@
 #include "ISolidShape.h"
 #include "CPoint.h"
 
-const std::string TYPE = "type: circle";
+const std::string TYPE_CIRCLE = "type: circle";
 const std::string CENTER = "center: ";
 const std::string RADIUS = "radius: ";
-const int ACCURACY = 2;
+const int ACCURACY_CIRCLE = 2;
 
 class CCircle : public ISolidShape
 {

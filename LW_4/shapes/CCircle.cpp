@@ -19,9 +19,9 @@ std::string CCircle::ToString() const
 {
 	std::ostringstream oss;
 
-	oss << std::setprecision(ACCURACY) << std::fixed;
+	oss << std::setprecision(ACCURACY_CIRCLE) << std::fixed;
 
-	oss << TYPE << std::endl
+	oss << TYPE_CIRCLE << std::endl
 		<< CENTER << OPEN_BRACKET << m_center.x << COMMA << m_center.y << CLOSE_BRACKET << std::endl
 		<< RADIUS << m_radius << std::endl
 		<< AREA << GetArea() << std::endl

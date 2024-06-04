@@ -18,9 +18,9 @@ std::string CLineSegment::ToString() const
 {
 	std::ostringstream oss;
 
-	oss << std::setprecision(ACCURACY) << std::fixed;
+	oss << std::setprecision(ACCURACY_LINE) << std::fixed;
 
-	oss << TYPE << std::endl
+	oss << TYPE_LINE << std::endl
 		<< START_POINT << OPEN_BRACKET << m_startPoint.x << COMMA << m_startPoint.y << CLOSE_BRACKET << std::endl
 		<< END_POINT << OPEN_BRACKET << m_endPoint.x << COMMA << m_endPoint.y << CLOSE_BRACKET << std::endl
 		<< LENGTH << GetPerimeter() << std::endl
