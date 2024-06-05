@@ -1,4 +1,4 @@
-#include "D:/Repos/VOLGATECH_WORK/нно/catch2/catch.hpp"
+#include "D:/Repos/VOLGATECH_WORK/OOP/catch2/catch.hpp"
 #include "../shapes/Shapes.h"
 #include <sstream>
 #include <float.h>
@@ -70,7 +70,7 @@ TEST_CASE("ReadShapeData reads data from istream and saves the object")
 
 	SECTION("Read line segment data")
 	{
-		std::istringstream iss("line 0 0 3 4 00FF00FF");
+		std::istringstream iss("kol 0 0 3 4 00FF00FF");
 		REQUIRE(shapes.ReadShapeData(iss));
 	}
 

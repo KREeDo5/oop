@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,8 +129,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\shapes\CCircle.cpp" />
+    <ClCompile Include="..\shapes\CLineSegment.cpp" />
+    <ClCompile Include="..\shapes\CPoint.cpp" />
+    <ClCompile Include="..\shapes\CRectangle.cpp" />
+    <ClCompile Include="..\shapes\CTriangle.cpp" />
+    <ClCompile Include="..\shapes\Shapes.cpp" />
     <ClCompile Include="Shapes.test.cpp" />
     <ClCompile Include="tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\shapes\CCircle.h" />
+    <ClInclude Include="..\shapes\CLineSegment.h" />
+    <ClInclude Include="..\shapes\CPoint.h" />
+    <ClInclude Include="..\shapes\CRectangle.h" />
+    <ClInclude Include="..\shapes\CTriangle.h" />
+    <ClInclude Include="..\shapes\IShape.h" />
+    <ClInclude Include="..\shapes\ISolidShape.h" />
+    <ClInclude Include="..\shapes\Shapes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
