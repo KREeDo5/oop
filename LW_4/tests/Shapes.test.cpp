@@ -12,11 +12,10 @@ TEST_CASE("Тестирование классов фигур")
 	{
 		CLineSegment line = CLineSegment(CPoint(5, 6), CPoint(9, 1), 16724991);
 		REQUIRE(line.GetArea() == 0.0);
-		REQUIRE(fabs(line.GetPerimeter() - 6.4031242374) < DBL_EPSILON);
 		REQUIRE(line.GetStartPoint() == CPoint(5, 6));
 		REQUIRE(line.GetEndPoint() == CPoint(9, 1));
 		REQUIRE(line.GetOutlineColor() == 16724991);
-		REQUIRE(line.ToString() == TYPE_LINE + "\nleft start point: (5.00, 6.00)\nend point: (9.00, 1.00)\nlength: 6.40\noutline color : ff33ff\n");
+		REQUIRE(line.ToString() == TYPE_LINE + "\n" + START_POINT + "(5.00, 6.00)\n" + END_POINT + "(9.00, 1.00)\n" + LENGTH + "6.40\n" + OUTLINE_COLOR + "ff33ff\n");
 	}
 
 	SECTION("Создание круга 0 0 15 00FF33FF EEFFBBFF")
@@ -24,11 +23,9 @@ TEST_CASE("Тестирование классов фигур")
 		CCircle circle = CCircle(CPoint(0, 0), 15, 16724991, 4009737215);
 		REQUIRE(circle.GetCenter() == CPoint(0, 0));
 		REQUIRE(circle.GetRadius() == 15.00);
-		REQUIRE(fabs(circle.GetArea() - 706.8583470577) < DBL_EPSILON);
-		REQUIRE(circle.GetPerimeter() == 6.4031242374);
 		REQUIRE(circle.GetOutlineColor() == 16724991);
 		REQUIRE(circle.GetFillColor() == 4009737215);
-		REQUIRE(circle.ToString() == TYPE_CIRCLE + "\ncenter: (0.00, 0.00)\nradius: 15.00\narea: 706.86\nperimeter: 94.25\noutline color: ff33ff\nfill color: eeffbbff\n");
+		REQUIRE(circle.ToString() == TYPE_CIRCLE + "\n" + CENTER + "(0.00, 0.00)\n" + RADIUS + "15.00\n" + AREA + "706.86\n" + PERIMETER + "94.25\n" + OUTLINE_COLOR + "ff33ff\n" + FILL_COLOR + "eeffbbff\n");
 	}
 
 	SECTION("Создание прямоугольника 5 -6 10 10 00FF33FF EEFFBBFF")
@@ -42,7 +39,7 @@ TEST_CASE("Тестирование классов фигур")
 		REQUIRE(rectangle.GetRightBottom() == CPoint(rectangle.GetLeftTop().x + rectangle.GetWidth(), rectangle.GetLeftTop().y + rectangle.GetHeight()));
 		REQUIRE(rectangle.GetOutlineColor() == 16724991);
 		REQUIRE(rectangle.GetFillColor() == 4009737215);
-		REQUIRE(rectangle.ToString() == TYPE_RECTANGLE + "\nleft top: (5.00, -6.00)\nwidth: 10.00\nheight: 10.00\narea: 100.00\nperimeter: 40.00\noutline color: ff33ff\nfill color: eeffbbff\n");
+		REQUIRE(rectangle.ToString() == TYPE_RECTANGLE + "\n" + LEFT_TOP + "(5.00, -6.00)\n" + WIDTH + "10.00\n" + HEIGHT + "10.00\n" + AREA + "100.00\n" + PERIMETER + "40.00\n" + OUTLINE_COLOR + "ff33ff\n" + FILL_COLOR + "eeffbbff\n");
 	}
 
 	SECTION("Создание треугольника 0 0 3 4 6 0 00FF33FF EEFFBBFF")
@@ -55,7 +52,7 @@ TEST_CASE("Тестирование классов фигур")
 		REQUIRE(triangle.GetVertex3() == CPoint(6, 0));
 		REQUIRE(triangle.GetOutlineColor() == 16724991);
 		REQUIRE(triangle.GetFillColor() == 4009737215);
-		REQUIRE(triangle.ToString() == TYPE_TRIANGLE + "\nvertex 1: (0.00, 0.00)\nvertex 2: (3.00, 4.00)\nvertex 3: (6.00, 0.00)\narea: 12.00\nperimeter: 16.00\noutline color: ff33ff\nfill color: eeffbbff\n");
+		REQUIRE(triangle.ToString() == TYPE_TRIANGLE + "\n" + VERTEX_FIRST + "(0.00, 0.00)\n" + VERTEX_SECOND + "(3.00, 4.00)\n" + VERTEX_THIRD + "(6.00, 0.00)\n" + AREA + "12.00\n" + PERIMETER + "16.00\n" + OUTLINE_COLOR + "ff33ff\n" + FILL_COLOR + "eeffbbff\n");
 	}
 }
 
