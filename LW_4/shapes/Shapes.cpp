@@ -117,6 +117,7 @@ std::shared_ptr<IShape> Shapes::FindMaxAreaShape() const
 		return {};
 	}
 
+	/*
 	std::shared_ptr<IShape> maxAreaShape = m_shapes[0];
 
 	double maxArea = m_shapes[0]->GetArea();
@@ -130,6 +131,18 @@ std::shared_ptr<IShape> Shapes::FindMaxAreaShape() const
 		}
 	}
 	return maxAreaShape;
+	*/
+
+	auto maxAreaShapeIt = std::max_element(
+		m_shapes.begin(), 
+		m_shapes.end(),
+		[](const std::shared_ptr<IShape>& left, const std::shared_ptr<IShape>& right)
+		{
+			return left->GetArea() < right->GetArea();
+		}
+	);
+
+	return *maxAreaShapeIt;
 }
 
 std::shared_ptr<IShape> Shapes::FindMinPerimeterShape() const
@@ -139,28 +152,30 @@ std::shared_ptr<IShape> Shapes::FindMinPerimeterShape() const
 		return {};
 	}
 
-	std::shared_ptr<IShape> minPerimeterShape = m_shapes[0];
-
-	double minPerimeter = m_shapes[0]->GetPerimeter();
-	double perimeter;
-	for (size_t i = 1; i < m_shapes.size(); ++i)
-	{
-		if ((perimeter = m_shapes[i]->GetPerimeter()) < minPerimeter)
+	auto minPerimeterShape = std::min_element(
+		m_shapes.begin(), 
+		m_shapes.end(),
+		[](const std::shared_ptr<IShape>& left, const std::shared_ptr<IShape>& right)
 		{
-			minPerimeter = perimeter;
-			minPerimeterShape = m_shapes[i];
+			return left->GetPerimeter() < right->GetPerimeter();
 		}
-	}
+	);
 
-	return minPerimeterShape;
+	return *minPerimeterShape;
 }
+
+//TODO: min/max STL 
+//*min_element(a.begin(), a.end());
+///https://metanit.com/cpp/tutorial/8.4.php
 
 bool Shapes::ReadLineSegmentData(std::istream& input)
 {
 	double startX, startY, endX, endY;
 	uint32_t outlineColor;
 
-	if (input >> startX >> startY >> endX >> endY >> std::hex >> outlineColor)
+	input >> startX >> startY >> endX >> endY >> std::hex >> outlineColor;
+
+	if (input)
 	{
 		m_shapes.push_back(
 			std::make_shared<CLineSegment>(
@@ -186,7 +201,9 @@ bool Shapes::ReadTriangleData(std::istream& input)
 	double vertex1X, vertex1Y, vertex2X, vertex2Y, vertex3X, vertex3Y;
 	uint32_t outlineColor, fillColor;
 
-	if (input >> vertex1X >> vertex1Y >> vertex2X >> vertex2Y >> vertex3X >> vertex3Y >> std::hex >> outlineColor >> std::hex >> fillColor)
+	input >> vertex1X >> vertex1Y >> vertex2X >> vertex2Y >> vertex3X >> vertex3Y >> std::hex >> outlineColor >> std::hex >> fillColor;
+
+	if (input)
 	{
 		m_shapes.push_back(std::make_shared<CTriangle>(
 			CPoint(
@@ -210,12 +227,21 @@ bool Shapes::ReadTriangleData(std::istream& input)
 	return false;
 }
 
+/*
+	Если поток находится в хорошем состоянии (то есть не произошли ошибки чтения,
+	конец файла не достигнут и нет других ошибок), оператор if (input) вернет true.
+
+	Если произошла какая-либо ошибка во время операций ввода, поток переходит в ошибочное состояние
+*/
+
 bool Shapes::ReadRectangleData(std::istream& input)
 {
 	double leftTopX, leftTopY, width, height;
 	uint32_t outlineColor, fillColor;
 
-	if (input >> leftTopX >> leftTopY >> width >> height >> std::hex >> outlineColor >> std::hex >> fillColor)
+	input >> leftTopX >> leftTopY >> width >> height >> std::hex >> outlineColor >> std::hex >> fillColor;
+
+	if (input)
 	{
 		m_shapes.push_back(
 			std::make_shared<CRectangle>(
@@ -240,7 +266,9 @@ bool Shapes::ReadCircleData(std::istream& input)
 	double centerX, centerY, radius;
 	uint32_t outlineColor, fillColor;
 
-	if (input >> centerX >> centerY >> radius >> std::hex >> outlineColor >> std::hex >> fillColor)
+	input >> centerX >> centerY >> radius >> std::hex >> outlineColor >> std::hex >> fillColor;
+
+	if (input)
 	{
 		m_shapes.push_back(
 			std::make_shared<CCircle>(
