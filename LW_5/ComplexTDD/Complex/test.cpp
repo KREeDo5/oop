@@ -269,15 +269,35 @@ TEST_CASE("4.2) Деление комплексного числа и действительного")
 }
 
 
-
-TEST_CASE("5) комплексные числа возвращают копию комплексного числа и противоположное комплексное число")
+TEST_CASE("5) Унарные + и -")
 {
-	SECTION("Унарный + комплексных чисел")
+	SECTION("Унарный +")
+	{
+		Complex complex(1, 2);
+
+		REQUIRE((+complex).Re() == complex.Re());
+		REQUIRE((+complex).Im() == complex.Im());
+	}
+
+	SECTION("Унарный -")
+	{
+		Complex complex(1, 2);
+
+		REQUIRE((-complex).Re() == -(complex.Re()));
+		REQUIRE((-complex).Im() == -(complex.Im()));
+	}
+}
+
+
+TEST_CASE("6-9) комплексные числа возвращают копию комплексного числа и противоположное комплексное число")
+{
+	SECTION("+= комплексных чисел")
 	{
 		Complex complex1(12, -34);
 		Complex complex2(-56, 78);
 
 		Complex& complexCopy = complex1;
+
 		complex1 += complex2;
 
 		REQUIRE(complex1.Re() == -44.0);
@@ -286,12 +306,13 @@ TEST_CASE("5) комплексные числа возвращают копию комплексного числа и противопол
 		REQUIRE(std::addressof(complexCopy) == std::addressof(complex1)); //Проверка что complexCopy и complex имеют один и тот же адрес в памяти, что complexCopy является ссылкой на объект complex.
 	}
 
-	SECTION("Унарный + комплексного и действительного числа")
+	SECTION("+= комплексного и действительного числа")
 	{
 		Complex complex(12, -34);
 		double real = 56.0;
 
 		Complex& complexCopy = complex;
+
 		complex += real;
 
 		REQUIRE(complex.Re() == 68.0);
@@ -300,12 +321,13 @@ TEST_CASE("5) комплексные числа возвращают копию комплексного числа и противопол
 		REQUIRE(std::addressof(complexCopy) == std::addressof(complex));
 	}
 
-	SECTION("Унарный - двух комплексных чисел")
+	SECTION("-= двух комплексных чисел")
 	{
 		Complex complex1(12, -34);
 		Complex complex2(-56, 78);
 
 		Complex& complexCopy = complex1;
+
 		complex1 -= complex2;
 
 		REQUIRE(complex1.Re() == 68.0);
@@ -314,12 +336,13 @@ TEST_CASE("5) комплексные числа возвращают копию комплексного числа и противопол
 		REQUIRE(std::addressof(complexCopy) == std::addressof(complex1));
 	}
 
-	SECTION("Унарный - комплексного и действительного числа")
+	SECTION("-= комплексного и действительного числа")
 	{
 		Complex complex(12, -34);
 		double real = 56.0;
 
 		Complex& complexCopy = complex;
+
 		complex -= real;
 
 		REQUIRE(complex.Re() == -44.0);
