@@ -113,7 +113,7 @@ TEST_CASE("1.2) Сумма комплексного и действительного числа")
 
 
 
-TEST_CASE("2.1) разность двух комплексных чисел")
+TEST_CASE("2.1) Разность двух комплексных чисел")
 {
 	setlocale(LC_ALL, "Russian");
 
@@ -140,7 +140,7 @@ TEST_CASE("2.1) разность двух комплексных чисел")
 	}
 }
 
-TEST_CASE("2.2) разность комплексного числа и действительного")
+TEST_CASE("2.2) Разность комплексного числа и действительного")
 {
 	setlocale(LC_ALL, "Russian");
 
@@ -164,5 +164,167 @@ TEST_CASE("2.2) разность комплексного числа и действительного")
 
 		REQUIRE(complexResult.Re() == 68.0);
 		REQUIRE(complexResult.Im() == -34.0);
+	}
+}
+
+TEST_CASE("3.1) Умножение комплексных чисел")
+{
+	SECTION("Умножение двух положительных комплексных чисел")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(3, 4);
+
+		auto complexResult = complex1 * complex2;
+
+		REQUIRE(complexResult.Re() == -5.0);
+		REQUIRE(complexResult.Im() == 10.0);
+	}
+
+	SECTION("Умножение двух отрицательных комплексных чисел")
+	{
+		Complex complex1(-1, -2);
+		Complex complex2(-3, -4);
+
+		auto complexResult = complex1 * complex2;
+
+		REQUIRE(complexResult.Re() == -5.0);
+		REQUIRE(complexResult.Im() == 10.0);
+	}
+}
+
+TEST_CASE("3.2) Умножение комплексного числа и действительного")
+{
+	SECTION("Умножение на положительное действительное")
+	{
+		Complex complex(1, -2);
+		double real = 3.0;
+
+		auto complexResult = complex * real;
+
+		REQUIRE(complexResult.Re() == 3.0);
+		REQUIRE(complexResult.Im() == -6.0);
+	}
+
+	SECTION("Умножение на отрицательное действительное")
+	{
+		Complex complex(1, -2);
+		double real = -3.0;
+
+		auto complexResult = complex * real;
+
+		REQUIRE(complexResult.Re() == -3.0);
+		REQUIRE(complexResult.Im() == 6.0);
+	}
+}
+
+
+TEST_CASE("4.1) Деление двух комплексных чисел")
+{
+	SECTION("деление положительных комплексных")
+	{
+		Complex complex1(2, 4);
+		Complex complex2(8, 24);
+
+		auto complexResult = complex1 / complex2;
+
+		REQUIRE(complexResult.Re() == 0.175);
+		REQUIRE(complexResult.Im() == -0.025);
+	}
+
+	SECTION("деление отрицательных комплексных")
+	{
+		Complex complex1(-2, -4);
+		Complex complex2(-8, -24);
+
+		auto complexResult = complex1 / complex2;
+
+		REQUIRE(complexResult.Re() == 0.175);
+		REQUIRE(complexResult.Im() == -0.025);
+	}
+}
+
+TEST_CASE("4.2) Деление комплексного числа и действительного")
+{
+	SECTION("Деление на положительное действительное")
+	{
+		Complex complex(12, -6);
+		double real = 4.0;
+
+		auto complexResult = complex / real;
+
+		REQUIRE(complexResult.Re() == 3.0);
+		REQUIRE(complexResult.Im() == -1.5);
+	}
+
+	SECTION("Деление на отрицательное действительное")
+	{
+		Complex complex(12, -6);
+		double real = -4.0;
+
+		auto complexResult = complex / real;
+
+		REQUIRE(complexResult.Re() == -3.0);
+		REQUIRE(complexResult.Im() == 1.5);
+	}
+}
+
+
+
+TEST_CASE("5) комплексные числа возвращают копию комплексного числа и противоположное комплексное число")
+{
+	SECTION("Унарный + комплексных чисел")
+	{
+		Complex complex1(12, -34);
+		Complex complex2(-56, 78);
+
+		Complex& complexCopy = complex1;
+		complex1 += complex2;
+
+		REQUIRE(complex1.Re() == -44.0);
+		REQUIRE(complex1.Im() == 44.0);
+
+		REQUIRE(std::addressof(complexCopy) == std::addressof(complex1)); //Проверка что complexCopy и complex имеют один и тот же адрес в памяти, что complexCopy является ссылкой на объект complex.
+	}
+
+	SECTION("Унарный + комплексного и действительного числа")
+	{
+		Complex complex(12, -34);
+		double real = 56.0;
+
+		Complex& complexCopy = complex;
+		complex += real;
+
+		REQUIRE(complex.Re() == 68.0);
+		REQUIRE(complex.Im() == -34.0);
+
+		REQUIRE(std::addressof(complexCopy) == std::addressof(complex));
+	}
+
+	SECTION("Унарный - двух комплексных чисел")
+	{
+		Complex complex1(12, -34);
+		Complex complex2(-56, 78);
+
+		Complex& complexCopy = complex1;
+		complex1 -= complex2;
+
+		REQUIRE(complex1.Re() == 68.0);
+		REQUIRE(complex1.Im() == -112.0);
+
+		REQUIRE(std::addressof(complexCopy) == std::addressof(complex1));
+	}
+
+	SECTION("Унарный - комплексного и действительного числа")
+	{
+		Complex complex(12, -34);
+		double real = 56.0;
+
+		Complex& complexCopy = complex;
+		complex -= real;
+
+		REQUIRE(complex.Re() == -44.0);
+		REQUIRE(complex.Im() == -34.0);
+
+		REQUIRE(std::addressof(complexCopy) == std::addressof(complex));
 	}
 }
