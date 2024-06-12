@@ -104,3 +104,55 @@ TEST_CASE("1.2) Сумма комплексного и действительного числа")
 		REQUIRE(complexResult.Im() == -34.0);
 	}
 }
+
+
+
+TEST_CASE("2.1) разность двух комплексных чисел")
+{
+	SECTION("разность двух положительных комплексных чисел")
+	{
+		Complex complex1(12, 34);
+		Complex complex2(56, 78);
+
+		auto complexResult = complex1 - complex2;
+
+		REQUIRE(complexResult.Re() == -44.0);
+		REQUIRE(complexResult.Im() == -44.0);
+	}
+
+	SECTION("разность двух отрицательных комплексных чисел")
+	{
+		Complex complex1(-12, -34);
+		Complex complex2(-56, -78);
+
+		auto complexResult = complex1 - complex2;
+
+		REQUIRE(complexResult.Re() == 44.0);
+		REQUIRE(complexResult.Im() == 44.0);
+	}
+}
+
+TEST_CASE("2.2) разность комплексного числа и действительного")
+{
+	SECTION("разность с положительным действительным числом")
+	{
+		Complex complex(12, -34);
+		double real = 56.0;
+
+		auto complexResult = complex - real;
+
+		REQUIRE(complexResult.Re() == -44.0);
+		REQUIRE(complexResult.Im() == -34.0);
+	}
+
+	SECTION("разность с отрицательным действительным числом")
+	{
+		Complex complex(12, -34);
+		double real = -56.0;
+
+		auto complexResult = complex - real;
+
+		REQUIRE(complexResult.Re() == 68.0);
+		REQUIRE(complexResult.Im() == -34.0);
+	}
+}
