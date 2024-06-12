@@ -289,7 +289,7 @@ TEST_CASE("5) Унарные + и -")
 }
 
 
-TEST_CASE("6-9) комплексные числа возвращают копию комплексного числа и противоположное комплексное число")
+TEST_CASE("Задания 6-9")
 {
 	SECTION("+= комплексных чисел")
 	{
@@ -349,5 +349,147 @@ TEST_CASE("6-9) комплексные числа возвращают копию комплексного числа и противоп
 		REQUIRE(complex.Im() == -34.0);
 
 		REQUIRE(std::addressof(complexCopy) == std::addressof(complex));
+	}
+}
+
+TEST_CASE("10,11) Операции сравнения")
+{
+	SECTION("Сравнение двух равных чисел")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(1, 2);
+
+		REQUIRE(complex1 == complex2);
+		REQUIRE(!(complex1 != complex2));
+	}
+
+	SECTION("Сравнение двух разных чисел")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(3, 4);
+
+		REQUIRE(!(complex1 == complex2));
+		REQUIRE(complex1 != complex2);
+	}
+
+	SECTION("Сравнение двух разных чисел по знакам, но взятых по модулю")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(-1, -2);
+
+		REQUIRE(!(complex1 == complex2));
+		REQUIRE(complex1 != complex2);
+	}
+}
+
+
+TEST_CASE("Потоковые операции")
+{
+	SECTION("Вывод")
+	{
+		std::ostringstream outputStringStream;
+
+		{
+			Complex complex(1, 2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1+2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(-1, 2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "-1+2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(1, -2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1-2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(-1, -2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "-1-2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(1, 0);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1+0i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(0, 1);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "0+1i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(0, -1);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "0-1i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(0, 0);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "0+0i");
+		}
+	}
+
+	SECTION("Ввод")
+	{
+		std::istringstream inputStringStream;
+
+		{
+			Complex complex;
+			inputStringStream.str("1+2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(1, 2));
+		}
+
+		{
+			Complex complex;
+			inputStringStream.str("1-2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(1, -2));
+		}
+
+		{
+			Complex complex;
+			inputStringStream.str("-1+2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(-1, 2));
+		}
+
+		{
+			Complex complex;
+			inputStringStream.str("-1-2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(-1, -2));
+		}
+
+		{
+			Complex complex1, complex2;
+			inputStringStream.str("-1-2i -3+4i");
+			inputStringStream >> complex1 >> complex2;
+			REQUIRE(complex1 == Complex(-1, -2));
+			REQUIRE(complex2 == Complex(-3, 4));
+		}
 	}
 }
