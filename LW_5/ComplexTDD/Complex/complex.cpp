@@ -119,6 +119,14 @@ Complex& operator/=(
 )
 {
 	auto denominator = right.m_real * right.m_real + right.m_image * right.m_image; //знаменатель
+	
+	if (denominator == 0.0) 
+	{	
+		left.m_real = 0.0;
+		left.m_image = 0.0;
+
+		return left;
+	}
 
 	auto real = (left.m_real * right.m_real + left.m_image * right.m_image) / denominator;
 	left.m_image = (right.m_real * left.m_image - left.m_real * right.m_image) / denominator;
